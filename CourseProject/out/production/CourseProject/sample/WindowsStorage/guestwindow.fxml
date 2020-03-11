@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WindowController.GuestController">
+   <children>
+      <TabPane layoutX="14.0" layoutY="42.0" prefHeight="636.0" prefWidth="1015.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="151.0" AnchorPane.topAnchor="42.0">
+         <tabs>
+            <Tab text="Список водителей">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Программа">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Выход" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Уч. запись">
+               <items>
+                  <MenuItem fx:id="changeToAdmin" mnemonicParsing="false" onAction="#changeToAdminClick" text="Администратор" />
+                  <MenuItem fx:id="changeToDriver" mnemonicParsing="false" onAction="#changeToDriverClick" text="Водитель" />
+                  <MenuItem fx:id="changeToUser" mnemonicParsing="false" onAction="#changeToUserClick" text="Пользователь" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Помощь">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Настройки" />
+                  <MenuItem mnemonicParsing="false" text="Информация" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
