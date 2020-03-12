@@ -11,15 +11,11 @@ public class UserWrapper {
     private SimpleStringProperty Name;
     private SimpleStringProperty PhoneNumber;
     private SimpleStringProperty Password;
-    private SimpleStringProperty AvgDriveTime;
-    private SimpleStringProperty AvgDriveDistance;
     public UserWrapper(String[] properties){
         id = new SimpleStringProperty(properties[0]);
         Name = new SimpleStringProperty(properties[1]);
         PhoneNumber = new SimpleStringProperty(properties[2]);
         Password = new SimpleStringProperty(properties[3]);
-        AvgDriveTime = new SimpleStringProperty(properties[4]);
-        AvgDriveDistance = new SimpleStringProperty(properties[5]);
 
     }
     public static ObservableList convertArrayList(ArrayList<String[]> list){
@@ -79,30 +75,6 @@ public class UserWrapper {
 
     public void setPassword(String password) {
         this.Password.set(password);
-    }
-
-    public String getAvgDriveTime() {
-        return AvgDriveTime.get();
-    }
-
-    public SimpleStringProperty avgDriveTimeProperty() {
-        return AvgDriveTime;
-    }
-
-    public void setAvgDriveTime(String avgDriveTime) {
-        this.AvgDriveTime.set(avgDriveTime);
-    }
-
-    public String getAvgDriveDistance() {
-        return AvgDriveDistance.get();
-    }
-
-    public SimpleStringProperty avgDriveDistanceProperty() {
-        return AvgDriveDistance;
-    }
-
-    public void setAvgDriveDistance(String avgDriveDistance) {
-        this.AvgDriveDistance.set(avgDriveDistance);
     }
 
 

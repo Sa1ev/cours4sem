@@ -5,48 +5,50 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.util.regex.Pattern;
 
 
-public class AuthorizationController {
+public class CreateVehicleController {
     private String returningValue = null;
     @FXML
-    Button loginButton;
+    Button createButton;
     @FXML
     Button rejectButton;
 
     @FXML
-    TextField numberField;
+    TextField modelField;
     @FXML
-    TextField passwordField;
+    TextField licenceField;
+    @FXML
+    TextField driverIdField;
+
 
     @FXML
     public void initialize(){
-        Pattern validIntegerText = Pattern.compile("^\\d{1,11}$");
-        setupPattern(validIntegerText, numberField, "8");
 
-        Pattern validPasswordText = Pattern.compile("\\S{0,20}");
-        setupPattern(validPasswordText, passwordField, null);
+        Pattern validModelText = Pattern.compile("^[A-Za-zА-Яа-я0-9\\-]{0,45}$");
+        setupPattern(validModelText, modelField, null);
+
+        Pattern validLicenceText = Pattern.compile("\\d{0,15}");
+        setupPattern(validLicenceText, licenceField, null);
+
+        Pattern validDriverText = Pattern.compile("\\d{0,9}");
+        setupPattern(validDriverText, driverIdField, null);
+
     }
-
-    Pattern phone = Pattern.compile("\\d{11}");
-    Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
-    public void loginClick(){
-        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches()){
-            returningValue = numberField.getText()+" "+passwordField.getText();
+    public void createButtonClick(){
+        if (modelField.getText() != "" & licenceField.getText() != "" & driverIdField.getText() != ""){
+            returningValue = modelField.getText()+" "+licenceField.getText()+" "+driverIdField.getText();
         }
-        ((Stage)passwordField.getScene().getWindow()).close();
+        ((Stage)modelField.getScene().getWindow()).close();
 
     }
     @FXML
     public void rejectClick(){
-        ((Stage)passwordField.getScene().getWindow()).close();
+        ((Stage)modelField.getScene().getWindow()).close();
 
     }
 

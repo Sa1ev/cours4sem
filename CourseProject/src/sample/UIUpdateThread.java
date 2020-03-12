@@ -19,7 +19,8 @@ public class UIUpdateThread extends Thread {
     }
     @Override
     public void run(){
-            thread.start();
+
+        thread.start();
         try {
             thread.join();
         } catch (InterruptedException e) {

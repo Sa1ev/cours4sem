@@ -31,8 +31,7 @@ public class CommandDistributor {
             case 1:
                 return adminSQLMethods.getTable(command[1]);
             case 2:
-                adminSQLMethods.addVehicle(command[1], new Integer(command[2]));
-                return true;
+                return AddRequest(command);
             case 3:
                 return true;
             case 4:
@@ -42,8 +41,8 @@ public class CommandDistributor {
                 adminSQLMethods.clearTable(command[1]);
                 return true;
             case 6:
-                adminSQLMethods.getLineByPhoneAndPassword(command[1], new Integer(command[2]), command[3]);
-                return true;
+                return adminSQLMethods.getLineByPhoneAndPassword(command[1], new Long(command[2]), command[3]);
+
             default:
                 return null;
         }
@@ -52,6 +51,10 @@ public class CommandDistributor {
         switch (new Integer(command[0])%100){
             case 1:
                 return driverSQLMethods.getTable(command[1]);
+            case 21:
+                return driverSQLMethods.getOrdersInQueue(new Integer(command[1]));
+            case 22:
+                return driverSQLMethods.getOrdersHistory(new Integer(command[1]));
             default:
                 return null;
         }
@@ -60,6 +63,10 @@ public class CommandDistributor {
         switch (new Integer(command[0])%100){
             case 1:
                 return userSQLMethods.getTable(command[1]);
+            case 21:
+                return driverSQLMethods.getOrdersInQueue(new Integer(command[1]));
+            case 22:
+                return driverSQLMethods.getOrdersHistory(new Integer(command[1]));
             default:
                 return null;
 
@@ -69,6 +76,24 @@ public class CommandDistributor {
         switch (new Integer(command[0])%100){
             case 1:
                 return userSQLMethods.getTable(command[1]);
+            default:
+                return null;
+        }
+    }
+
+    private static Object AddRequest(String[] command){
+        switch (command[1]){
+            case "User":
+                adminSQLMethods.addUser( new Long(command[2]), command[3],command[4]);
+                return true;
+            case "Vehicle":
+                adminSQLMethods.addVehicle(command[2], command[3], new Integer(command[4]));
+                return true;
+            case "Driver":
+                adminSQLMethods.addDriver( new Long(command[3]), command[2], command[4], new Integer(command[5]),new Integer(command[6]));
+                return true;
+            case "Order":
+                return true;
             default:
                 return null;
         }

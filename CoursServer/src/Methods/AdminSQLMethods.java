@@ -9,27 +9,27 @@ public class AdminSQLMethods extends SQLMethods {
         super(url, user, password);
     }
 
-    public void addVehicle(String model, int licenceNumber){
+    public void addVehicle(String model, String licenceNumber, int driverid){
         try {
 
-            statement.execute(String.format("insert into vehicle( Model,LicenceNumber, DriverId,Mileage,AvgTime ,AvgMileage) values('%s', %d, 0,0,0,0);", model, licenceNumber));
+            statement.execute(String.format("insert into vehicle( Model,LicenceNumber, DriverId) values('%s', %d, %d);", model, licenceNumber, driverid));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void addUser(String name, String password, int phoneNumber){
+    public void addUser(long phoneNumber, String password, String name ){
         try {
 
-            statement.execute(String.format("insert into user( Name, Password, PhoneNumber, AvgDriveTime , AvgDriveDistance) values(%s, %s, %d,0,0);", name, password, phoneNumber));
+            statement.execute(String.format("insert into user( Name, Password, PhoneNumber) values(%s, %s, %d);", name, password, phoneNumber));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void addDriver(String name, int phoneNumber, String password, int vehicleId, int licenceId ){
+    public void addDriver( Long phoneNumber, String password, String name, int vehicleId, int licenceId ){
         try {
 
-            statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid, AvgDriveTime , AvgDriveDistance) values(%s, %s, %d,%d,%d,0,0);",
+            statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values(%s, %s, %d,%d,%s);",
                     name, password,vehicleId,licenceId, phoneNumber));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class AdminSQLMethods extends SQLMethods {
             e.printStackTrace();
         }
     }
-    public ArrayList<String[]> getLineByPhoneAndPassword(String tableName, int phone, String password){
+    public ArrayList<String[]> getLineByPhoneAndPassword(String tableName, Long phone, String password){
         ArrayList<String[]> value  = new ArrayList<>();
         try {
             ResultSet tableCount = statement.executeQuery(String.format("SELECT COUNT(*)\n" +
@@ -61,7 +61,7 @@ public class AdminSQLMethods extends SQLMethods {
                     "   AND table_name = '%s'", tableName));
             tableCount.next();
             int columnCount =  tableCount.getInt(1);
-            ResultSet set = statement.executeQuery(String.format("Select * from  &s where phonenumber = %d and password  = %s", tableName, phone, password));
+            ResultSet set = statement.executeQuery(String.format("Select * from  %s where phonenumber = %d and password  = '%s'", tableName, phone, password));
             while (set.next()){
                 String[] oneRow = new String[columnCount];
                 for (int i = 0; i < columnCount; i++) {

@@ -5,23 +5,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.util.regex.Pattern;
 
 
-public class AuthorizationController {
+public class CreateUserController {
     private String returningValue = null;
     @FXML
-    Button loginButton;
+    Button createButton;
     @FXML
     Button rejectButton;
 
     @FXML
     TextField numberField;
+    @FXML
+    TextField nameField;
     @FXML
     TextField passwordField;
 
@@ -32,14 +31,17 @@ public class AuthorizationController {
 
         Pattern validPasswordText = Pattern.compile("\\S{0,20}");
         setupPattern(validPasswordText, passwordField, null);
-    }
 
+        Pattern validNameText = Pattern.compile("[A-Яа-яA-Za-z\\s]{0,30}");
+        setupPattern(validNameText, nameField, null);
+
+    }
     Pattern phone = Pattern.compile("\\d{11}");
     Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
-    public void loginClick(){
-        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches()){
-            returningValue = numberField.getText()+" "+passwordField.getText();
+    public void createButtonClick(){
+        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & nameField.getText()!=""){
+            returningValue = numberField.getText()+" "+passwordField.getText()+" "+nameField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 

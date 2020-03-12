@@ -12,8 +12,6 @@ public class VehicleWrapper {
     private SimpleStringProperty LicenceNumber;
     private SimpleStringProperty DriverId;
     private SimpleStringProperty Mileage;
-    private SimpleStringProperty AvgTime;
-    private SimpleStringProperty AvgMileage;
 
 
     public String getId() {
@@ -76,29 +74,6 @@ public class VehicleWrapper {
         this.Mileage.set(mileage);
     }
 
-    public String getAvgTime() {
-        return AvgTime.get();
-    }
-
-    public SimpleStringProperty avgTimeProperty() {
-        return AvgTime;
-    }
-
-    public void setAvgTime(String avgTime) {
-        this.AvgTime.set(avgTime);
-    }
-
-    public String getAvgMileage() {
-        return AvgMileage.get();
-    }
-
-    public SimpleStringProperty avgMileageProperty() {
-        return AvgMileage;
-    }
-
-    public void setAvgMileage(String avgMileage) {
-        this.AvgMileage.set(avgMileage);
-    }
 
 
     public VehicleWrapper(String[] properties){
@@ -107,8 +82,6 @@ public class VehicleWrapper {
         LicenceNumber = new SimpleStringProperty(properties[2]);
         DriverId = new SimpleStringProperty(properties[3]);
         Mileage = new SimpleStringProperty(properties[4]);
-        AvgTime = new SimpleStringProperty(properties[5]);
-        AvgMileage = new SimpleStringProperty(properties[6]);
     }
 
     public static ObservableList convertArrayList(ArrayList<String[]> list){

@@ -2,13 +2,9 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.HashMap;
 
 
 public class Main extends Application {
@@ -17,16 +13,25 @@ public class Main extends Application {
 
          //new ClientThread().run();
 
-        Pane admin = FXMLLoader.load(getClass().getResource("WindowsStorage/adminwindow.fxml"));
-        Pane driver = FXMLLoader.load(getClass().getResource("WindowsStorage/driverwindow.fxml"));
-        Pane user = FXMLLoader.load(getClass().getResource("WindowsStorage/userwindow.fxml"));
-        Pane guest = FXMLLoader.load(getClass().getResource("WindowsStorage/guestwindow.fxml"));
+        FXMLLoader adminLoader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/adminwindow.fxml"));
+        FXMLLoader driverLoader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/driverwindow.fxml"));
+        FXMLLoader userLoader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/userwindow.fxml"));
+        FXMLLoader guestLoader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/guestwindow.fxml"));
+        Pane admin = adminLoader.load();
+        Pane driver = driverLoader.load();
+        Pane user = userLoader.load();
+        Pane guest = guestLoader.load();
 
 
-        Scene scene = new Scene(admin);
+        Scene scene = new Scene(guest);
 
         ScreenController screenController = ScreenController.getINSTANCE();
         screenController.setScene(scene);
+        screenController.addLoader("admin", adminLoader);
+        screenController.addLoader("driver", driverLoader);
+        screenController.addLoader("user", userLoader);
+        screenController.addLoader("guest", guestLoader);
+
         screenController.addScreen("admin", admin);
         screenController.addScreen("driver", driver);
         screenController.addScreen("user", user);

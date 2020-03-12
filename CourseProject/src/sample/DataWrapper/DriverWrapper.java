@@ -13,8 +13,6 @@ public class DriverWrapper {
     private SimpleStringProperty Password;
     private SimpleStringProperty VehicleId;
     private SimpleStringProperty LicenceId;
-    private SimpleStringProperty AvgDriveTime;
-    private SimpleStringProperty AvgDriveDistance;
     public DriverWrapper(String[] properties){
         id = new SimpleStringProperty(properties[0]);
         Name = new SimpleStringProperty(properties[1]);
@@ -22,8 +20,6 @@ public class DriverWrapper {
         Password = new SimpleStringProperty(properties[3]);
         VehicleId = new SimpleStringProperty(properties[4]);
         LicenceId = new SimpleStringProperty(properties[5]);
-        AvgDriveTime = new SimpleStringProperty(properties[6]);
-        AvgDriveDistance = new SimpleStringProperty(properties[7]);
 
     }
     public static ObservableList convertArrayList(ArrayList<String[]> list){
@@ -108,29 +104,6 @@ public class DriverWrapper {
         this.LicenceId.set(licenceId);
     }
 
-    public String getAvgDriveTime() {
-        return AvgDriveTime.get();
-    }
-
-    public SimpleStringProperty avgDriveTimeProperty() {
-        return AvgDriveTime;
-    }
-
-    public void setAvgDriveTime(String avgDriveTime) {
-        this.AvgDriveTime.set(avgDriveTime);
-    }
-
-    public String getAvgDriveDistance() {
-        return AvgDriveDistance.get();
-    }
-
-    public SimpleStringProperty avgDriveDistanceProperty() {
-        return AvgDriveDistance;
-    }
-
-    public void setAvgDriveDistance(String avgDriveDistance) {
-        this.AvgDriveDistance.set(avgDriveDistance);
-    }
 
 
 }

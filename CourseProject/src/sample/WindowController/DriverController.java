@@ -1,31 +1,39 @@
 package sample.WindowController;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.*;
 import sample.DataWrapper.OrderWrapper;
-import sample.ScreenController;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DriverController {
-
+    ExecutorService exec = Executors.newFixedThreadPool(1);
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
+        Account.authorization("Admin", null, null);
         ScreenController.getINSTANCE().activate("admin");
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        ScreenController.getINSTANCE().activate("user");
+        String[] value = WindowsCreator.createAuthorizationWindow().split(" ");
+        if (Account.authorization("User", value[0], value[1])){
+            ScreenController.getINSTANCE().activate("user");
+        }
     }
     @FXML
     public void changeToGuestClick(ActionEvent actionEvent) {
+        Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
 
+    @FXML
+    TabPane tabPane;
     @FXML
     TableView<OrderWrapper> orderQueueTable;
     @FXML
@@ -35,6 +43,14 @@ public class DriverController {
     public void initialize() {
         initializeOrderQueueTable();
         initializeOrderHistoryTable();
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        updateTable(tabPane.getSelectionModel().getSelectedIndex());
+                    }
+                }
+        );
     }
 
     void initializeOrderQueueTable(){
@@ -79,5 +95,25 @@ public class DriverController {
         orderHistoryTable.getColumns().add(c6);
         orderHistoryTable.getColumns().add(c7);
         orderHistoryTable.getColumns().add(c8);
+    }
+
+    public void updateTable(int index){
+        switch (index){
+            case 0:
+                exec.submit(new UIUpdateThread(orderQueueTable , new ClientThread(1221, Integer.toString(Account.id)), "OrderWrapper"));
+                break;
+            case 1:
+                exec.submit(new UIUpdateThread(orderHistoryTable , new ClientThread(1222, Integer.toString(Account.id)), "OrderWrapper"));
+        }
+    }
+
+    public void approveButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void rejectButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void updateButtonClick(ActionEvent actionEvent) {
+        new UIPreloadThread(this).start();
     }
 }

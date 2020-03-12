@@ -1,10 +1,6 @@
 package sample.WindowController;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -17,8 +13,6 @@ import sample.DataWrapper.OrderWrapper;
 import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
 
-import java.security.AccessControlContext;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -44,16 +38,21 @@ public class AdminController {
     Tab orderTab;
     @FXML
     public void changeToDriverClick(ActionEvent actionEvent) {
-        ScreenController.getINSTANCE().activate("driver");
+        String[] value = WindowsCreator.createAuthorizationWindow().split(" ");
+        if (Account.authorization("Driver", value[0], value[1])){
+            ScreenController.getINSTANCE().activate("driver");
+        }
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        String[] value = AuthorizationCreator.createAuthorizationWindow().split(" ");
-        Account.authorization("User", value[0], value[1]);
-        //ScreenController.getINSTANCE().activate("user");
+        String[] value = WindowsCreator.createAuthorizationWindow().split(" ");
+        if (Account.authorization("User", value[0], value[1])){
+            ScreenController.getINSTANCE().activate("user");
+        }
     }
     @FXML
     public void changeToGuestClick(ActionEvent actionEvent) {
+        Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
     @FXML
@@ -70,7 +69,7 @@ public class AdminController {
         initializeDriverTable();
         initializeUserTable();
         initializeOrderTable();
-        updateTable(0);
+
 
 //        tabPane.getSelectionModel().selectedItemProperty().addListener(
 //                new ChangeListener<Tab>() {
@@ -89,22 +88,16 @@ public class AdminController {
         TableColumn<VehicleWrapper, String> c3 = new TableColumn<VehicleWrapper, String>("Licence Number");
         TableColumn<VehicleWrapper, String> c4 = new TableColumn<VehicleWrapper, String>("Driver Id");
         TableColumn<VehicleWrapper, String> c5 = new TableColumn<VehicleWrapper, String>("Mileage");
-        TableColumn<VehicleWrapper, String> c6 = new TableColumn<VehicleWrapper, String>("AvgTime");
-        TableColumn<VehicleWrapper, String> c7 = new TableColumn<VehicleWrapper, String>("AvgMileage");
         c1.setCellValueFactory(new PropertyValueFactory("id"));
         c2.setCellValueFactory(new PropertyValueFactory("Model"));
         c3.setCellValueFactory(new PropertyValueFactory("LicenceNumber"));
         c4.setCellValueFactory(new PropertyValueFactory("DriverId"));
         c5.setCellValueFactory(new PropertyValueFactory("Mileage"));
-        c6.setCellValueFactory(new PropertyValueFactory("AvgTime"));
-        c7.setCellValueFactory(new PropertyValueFactory("AvgMileage"));
         vehicleTable.getColumns().add(c1);
         vehicleTable.getColumns().add(c2);
         vehicleTable.getColumns().add(c3);
         vehicleTable.getColumns().add(c4);
         vehicleTable.getColumns().add(c5);
-        vehicleTable.getColumns().add(c6);
-        vehicleTable.getColumns().add(c7);
     }
 
     void initializeDriverTable(){
@@ -114,24 +107,18 @@ public class AdminController {
         TableColumn<DriverWrapper, String> c4 = new TableColumn("Password");
         TableColumn<DriverWrapper, String> c5 = new TableColumn("Vehicle Id");
         TableColumn<DriverWrapper, String> c6 = new TableColumn("Licence Id");
-        TableColumn<DriverWrapper, String> c7 = new TableColumn("AvgDriveTime");
-        TableColumn<DriverWrapper, String> c8 = new TableColumn("AvgDriveDistance");
         c1.setCellValueFactory(new PropertyValueFactory("id"));
         c2.setCellValueFactory(new PropertyValueFactory("Name"));
         c3.setCellValueFactory(new PropertyValueFactory("PhoneNumber"));
         c4.setCellValueFactory(new PropertyValueFactory("Password"));
         c5.setCellValueFactory(new PropertyValueFactory("VehicleId"));
         c6.setCellValueFactory(new PropertyValueFactory("LicenceId"));
-        c7.setCellValueFactory(new PropertyValueFactory("AvgDriveTime"));
-        c8.setCellValueFactory(new PropertyValueFactory("AvgDriveDistance"));
         driverTable.getColumns().add(c1);
         driverTable.getColumns().add(c2);
         driverTable.getColumns().add(c3);
         driverTable.getColumns().add(c4);
         driverTable.getColumns().add(c5);
         driverTable.getColumns().add(c6);
-        driverTable.getColumns().add(c7);
-        driverTable.getColumns().add(c8);
     }
 
     void initializeUserTable(){
@@ -139,20 +126,14 @@ public class AdminController {
         TableColumn<UserWrapper, String> c2 = new TableColumn("Name");
         TableColumn<UserWrapper, String> c3 = new TableColumn("Phone Number");
         TableColumn<UserWrapper, String> c4 = new TableColumn("Password");
-        TableColumn<UserWrapper, String> c5 = new TableColumn("AvgDriveTime");
-        TableColumn<UserWrapper, String> c6 = new TableColumn("AvgDriveDistance");
         c1.setCellValueFactory(new PropertyValueFactory("id"));
         c2.setCellValueFactory(new PropertyValueFactory("Name"));
         c3.setCellValueFactory(new PropertyValueFactory("PhoneNumber"));
         c4.setCellValueFactory(new PropertyValueFactory("Password"));
-        c5.setCellValueFactory(new PropertyValueFactory("AvgDriveTime"));
-        c6.setCellValueFactory(new PropertyValueFactory("AvgDriveDistance"));
         userTable.getColumns().add(c1);
         userTable.getColumns().add(c2);
         userTable.getColumns().add(c3);
         userTable.getColumns().add(c4);
-        userTable.getColumns().add(c5);
-        userTable.getColumns().add(c6);
     }
 
     void initializeOrderTable(){
@@ -188,17 +169,73 @@ public class AdminController {
     public void updateTable(int index){
         switch (index){
             case 0:
+
                 exec.submit(new UIUpdateThread(vehicleTable , new ClientThread(1101, "Vehicle"), "VehicleWrapper"));
                 break;
             case 1:
-                exec.submit( new UIUpdateThread(userTable ,new ClientThread(1101, "User"), "UserWrapper"));
+                exec.submit(new UIUpdateThread(userTable ,new ClientThread(1101, "User"), "UserWrapper"));
                 break;
             case 2:
-                new UIUpdateThread(driverTable ,new ClientThread(1101, "Driver"), "DriverWrapper").start();
+                exec.submit(new UIUpdateThread(driverTable ,new ClientThread(1101, "Driver"), "DriverWrapper"));
                 break;
             case 3:
-                new UIUpdateThread(orderTable ,new ClientThread(1101, "OrderList"), "OrderWrapper").start();
+                exec.submit(new UIUpdateThread(orderTable ,new ClientThread(1101, "OrderList"), "OrderWrapper"));
                 break;
         }
+    }
+
+    public void updateButtonClick(ActionEvent actionEvent) {
+        new UIPreloadThread(this).start();
+    }
+
+    public void infoButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void addButtonClick(ActionEvent actionEvent) {
+        String value;
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                value = WindowsCreator.createVehicleWindow();
+                new ClientThread(1102, "Vehicle "+value).start();
+                updateTable(0);
+                break;
+            case 1:
+                value = WindowsCreator.createUserCreationWindow();
+                new ClientThread(1102, "User "+value).start();
+                updateTable(1);
+                break;
+            case 2:
+                value = WindowsCreator.createDriverCreationWindow();
+                new ClientThread(1102, "Driver "+value).start();
+                updateTable(2);
+                break;
+        }
+    }
+
+    public void editButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteButtonClick(ActionEvent actionEvent) {
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                new ClientThread(1104, "Vehicle "+vehicleTable.getSelectionModel().selectedItemProperty().get().getId()).start();
+                updateTable(0);
+                break;
+            case 1:
+                new ClientThread(1104, "User "+userTable.getSelectionModel().selectedItemProperty().get().getId()).start();
+                updateTable(1);
+                break;
+            case 2:
+                new ClientThread(1104, "Driver "+driverTable.getSelectionModel().selectedItemProperty().get().getId()).start();
+                updateTable(2);
+                break;
+            case 3:
+                new ClientThread(1104, "OrderList "+orderTable.getSelectionModel().selectedItemProperty().get().getOrderid()).start();
+                updateTable(3);
+                break;
+        }
+
+
+
     }
 }

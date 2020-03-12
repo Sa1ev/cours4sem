@@ -18,6 +18,7 @@ public class CommandListener implements Runnable {
     }
     @Override
     public void run() {
+        synchronized (clientDialog){
             try {
                 ObjectOutputStream out = new ObjectOutputStream(clientDialog.getOutputStream());
                 DataInputStream in = new DataInputStream(clientDialog.getInputStream());
@@ -42,6 +43,8 @@ public class CommandListener implements Runnable {
             catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
 
     }
 
