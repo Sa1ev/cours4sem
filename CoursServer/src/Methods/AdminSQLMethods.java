@@ -1,6 +1,7 @@
 package Methods;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class AdminSQLMethods extends SQLMethods {
 
@@ -50,5 +51,28 @@ public class AdminSQLMethods extends SQLMethods {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<String[]> getLineByPhoneAndPassword(String tableName, int phone, String password){
+        ArrayList<String[]> value  = new ArrayList<>();
+        try {
+            ResultSet tableCount = statement.executeQuery(String.format("SELECT COUNT(*)\n" +
+                    "  FROM INFORMATION_SCHEMA.COLUMNS\n"+
+                    "  where TABLE_SCHEMA = 'coursedb' "+
+                    "   AND table_name = '%s'", tableName));
+            tableCount.next();
+            int columnCount =  tableCount.getInt(1);
+            ResultSet set = statement.executeQuery(String.format("Select * from  &s where phonenumber = %d and password  = %s", tableName, phone, password));
+            while (set.next()){
+                String[] oneRow = new String[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                value.add(oneRow);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 }

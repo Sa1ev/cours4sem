@@ -41,6 +41,9 @@ public class CommandDistributor {
             case 5:
                 adminSQLMethods.clearTable(command[1]);
                 return true;
+            case 6:
+                adminSQLMethods.getLineByPhoneAndPassword(command[1], new Integer(command[2]), command[3]);
+                return true;
             default:
                 return null;
         }

@@ -11,20 +11,19 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.*;
 import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
 import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
-import sample.ScreenController;
-import sample.ClientThread;
-import sample.UIUpdateThread;
 
+import java.security.AccessControlContext;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AdminController {
-    ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    ExecutorService exec = Executors.newFixedThreadPool(1);
     @FXML
     TabPane tabPane;
     @FXML
@@ -49,7 +48,9 @@ public class AdminController {
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        ScreenController.getINSTANCE().activate("user");
+        String[] value = AuthorizationCreator.createAuthorizationWindow().split(" ");
+        Account.authorization("User", value[0], value[1]);
+        //ScreenController.getINSTANCE().activate("user");
     }
     @FXML
     public void changeToGuestClick(ActionEvent actionEvent) {
@@ -57,19 +58,19 @@ public class AdminController {
     }
     @FXML
     public void button1Click(ActionEvent actionEvent) throws InterruptedException {
-        for (int i = 0; i <10 ; i++) {
-             exec.execute(new UIUpdateThread(vehicleTable , new ClientThread(1101, "Vehicle"), "VehicleWrapper"));
 
-        }
     }
 
+    public AdminController(){
 
+    }
     @FXML
     public void initialize() {
         initializeVehicleTable();
         initializeDriverTable();
         initializeUserTable();
         initializeOrderTable();
+        updateTable(0);
 
 //        tabPane.getSelectionModel().selectedItemProperty().addListener(
 //                new ChangeListener<Tab>() {
@@ -80,6 +81,7 @@ public class AdminController {
 //                }
 //        );
     }
+
 
     void initializeVehicleTable() {
         TableColumn<VehicleWrapper, String> c1 = new TableColumn<VehicleWrapper, String>("Id");
@@ -157,17 +159,21 @@ public class AdminController {
         TableColumn<OrderWrapper, String> c1 = new TableColumn("Order Id");
         TableColumn<OrderWrapper, String> c2 = new TableColumn("Driver Id");
         TableColumn<OrderWrapper, String> c3 = new TableColumn("User Id");
-        TableColumn<OrderWrapper, String> c4 = new TableColumn("Distance");
-        TableColumn<OrderWrapper, String> c5 = new TableColumn("Time");
-        TableColumn<OrderWrapper, String> c6 = new TableColumn("Approved");
-        TableColumn<OrderWrapper, String> c7 = new TableColumn("In queue");
+        TableColumn<OrderWrapper, String> c4 = new TableColumn("Start Point");
+        TableColumn<OrderWrapper, String> c5 = new TableColumn("Finish Point");
+        TableColumn<OrderWrapper, String> c6 = new TableColumn("Distance");
+        TableColumn<OrderWrapper, String> c7 = new TableColumn("Time");
+        TableColumn<OrderWrapper, String> c8 = new TableColumn("Approved");
+        TableColumn<OrderWrapper, String> c9 = new TableColumn("In queue");
         c1.setCellValueFactory(new PropertyValueFactory("orderid"));
         c2.setCellValueFactory(new PropertyValueFactory("driverid"));
         c3.setCellValueFactory(new PropertyValueFactory("userid"));
-        c4.setCellValueFactory(new PropertyValueFactory("distance"));
-        c5.setCellValueFactory(new PropertyValueFactory("time"));
-        c6.setCellValueFactory(new PropertyValueFactory("approved"));
-        c7.setCellValueFactory(new PropertyValueFactory("inqueue"));
+        c4.setCellValueFactory(new PropertyValueFactory("startPoint"));
+        c5.setCellValueFactory(new PropertyValueFactory("fiishPoint"));
+        c6.setCellValueFactory(new PropertyValueFactory("distance"));
+        c7.setCellValueFactory(new PropertyValueFactory("time"));
+        c8.setCellValueFactory(new PropertyValueFactory("approved"));
+        c9.setCellValueFactory(new PropertyValueFactory("inqueue"));
         orderTable.getColumns().add(c1);
         orderTable.getColumns().add(c2);
         orderTable.getColumns().add(c3);
@@ -175,33 +181,17 @@ public class AdminController {
         orderTable.getColumns().add(c5);
         orderTable.getColumns().add(c6);
         orderTable.getColumns().add(c7);
-    }
-
-
-    public void vehicleTabClick(Event event) {
-      //  new UIUpdateThread(vehicleTable ,new ClientThread(1101, "Vehicle"), "VehicleWrapper").start();
-    }
-
-    public void userTabClick(Event event) {
- //       new UIUpdateThread(userTable ,new ClientThread(1101, "User"), "UserWrapper").start();
-    }
-
-    public void driverTabClick(Event event) {
-//        new UIUpdateThread(driverTable ,new ClientThread(1101, "Driver"), "DriverWrapper").start();
-    }
-
-    public void orderTabClick(Event event) {
-//        new UIUpdateThread(orderTable ,new ClientThread(1101, "OrderList"), "OrderWrapper").start();
+        orderTable.getColumns().add(c8);
+        orderTable.getColumns().add(c9);
     }
 
     public void updateTable(int index){
-        System.out.println(Thread.currentThread());
         switch (index){
             case 0:
-                new UIUpdateThread(vehicleTable , new ClientThread(1101, "Vehicle"), "VehicleWrapper").start();
+                exec.submit(new UIUpdateThread(vehicleTable , new ClientThread(1101, "Vehicle"), "VehicleWrapper"));
                 break;
             case 1:
-                new UIUpdateThread(userTable ,new ClientThread(1101, "User"), "UserWrapper").start();
+                exec.submit( new UIUpdateThread(userTable ,new ClientThread(1101, "User"), "UserWrapper"));
                 break;
             case 2:
                 new UIUpdateThread(driverTable ,new ClientThread(1101, "Driver"), "DriverWrapper").start();

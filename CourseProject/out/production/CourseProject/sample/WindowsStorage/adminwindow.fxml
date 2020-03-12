@@ -13,7 +13,7 @@
    <children>
       <TabPane fx:id="tabPane" layoutX="14.0" layoutY="42.0" prefHeight="636.0" prefWidth="1015.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="151.0" AnchorPane.topAnchor="42.0">
          <tabs>
-            <Tab fx:id="vehicleTab" onSelectionChanged="#vehicleTabClick" text="Список транспорта">
+            <Tab fx:id="vehicleTab" text="Список транспорта">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -25,7 +25,7 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="userTab" onSelectionChanged="#userTabClick" text="Список пользователей">
+            <Tab fx:id="userTab" text="Список пользователей">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -37,7 +37,7 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="driverTab" onSelectionChanged="#driverTabClick" text="Список водителей">
+            <Tab fx:id="driverTab" text="Список водителей">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -49,7 +49,7 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="orderTab" onSelectionChanged="#orderTabClick" text="История заказов">
+            <Tab fx:id="orderTab" text="История заказов">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

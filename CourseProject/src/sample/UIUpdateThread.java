@@ -26,7 +26,7 @@ public class UIUpdateThread extends Thread {
             e.printStackTrace();
         }
 
-        System.out.println("UIUpdateThread thread is working: "+Thread.currentThread());
+
         ObservableList obsList = null;
         switch (wrapperType){
             case "DriverWrapper":

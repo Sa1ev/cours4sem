@@ -33,9 +33,11 @@ public class Main extends Application {
         screenController.addScreen("guest", guest);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Hello JavaFX");
-        primaryStage.setWidth(900);
-        primaryStage.setHeight(900);
+        primaryStage.setTitle("Course");
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(700);
+        primaryStage.setMinWidth(800);
+        primaryStage.setMinHeight(600);
 
         primaryStage.show();
 

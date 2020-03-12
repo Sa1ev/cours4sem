@@ -21,6 +21,8 @@ public class SQLMethods {
     public ArrayList<String[]> getTable(String tableName){
         ArrayList<String[]> value  = new ArrayList<>();
         try {
+
+
             ResultSet tableCount = statement.executeQuery(String.format("SELECT COUNT(*)\n" +
                     "  FROM INFORMATION_SCHEMA.COLUMNS\n"+
                     "  where TABLE_SCHEMA = 'coursedb' "+

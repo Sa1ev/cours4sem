@@ -1,10 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Methods/SQLMethods.java" line="44" />
+    <bookmark url="file://$PROJECT_DIR$/src/Methods/SQLMethods.java" line="46" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f1c1e13-e4b3-43fb-af2a-6e304e6164f6" name="Default Changelist" comment="" />
+    <list default="true" id="3f1c1e13-e4b3-43fb-af2a-6e304e6164f6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/AuthorizationCreator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AuthorizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CoursServer/META-INF/CoursServer.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CoursServer/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CoursServer/Methods/SQLMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/Methods/SQLMethods.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CommandDistributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CommandDistributor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methods/SQLMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods/SQLMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Commands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/OrderWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/OrderWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIUpdateThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIUpdateThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/GuestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/GuestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/adminwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/adminwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/driverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/driverwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/guestwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/guestwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/userwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/userwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/ClientThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/OrderWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/OrderWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/UIUpdateThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/UIUpdateThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/DriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/GuestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/GuestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/adminwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/adminwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/driverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/driverwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/guestwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/guestwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/userwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/userwindow.fxml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +61,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+            <state relative-caret-position="204">
+              <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -30,24 +83,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="28" column="63" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#626#627#0" expanded="true" />
-                <element signature="e#679#680#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CommandDistributor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="51" />
+            <state relative-caret-position="27">
+              <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,13 +97,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="367">
+              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
               <folding>
-                <element signature="method#addUser#0;class#AdminSQLMethods#0" />
-                <element signature="method#addDriver#0;class#AdminSQLMethods#0" />
+                <element signature="imports" expanded="true" />
                 <element signature="method#deleteItemById#0;class#AdminSQLMethods#0" />
-                <element signature="method#clearTable#0;class#AdminSQLMethods#0" />
               </folding>
             </state>
           </provider>
@@ -82,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Methods/SQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="493">
+              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,6 +146,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -123,11 +163,11 @@
         <option value="$PROJECT_DIR$/src/Request.java" />
         <option value="$PROJECT_DIR$/src/SQLServer.java" />
         <option value="$PROJECT_DIR$/src/CommandServer.java" />
-        <option value="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" />
-        <option value="$PROJECT_DIR$/src/Methods/SQLMethods.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/CommandDistributor.java" />
         <option value="$PROJECT_DIR$/src/CommandListener.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Methods/SQLMethods.java" />
+        <option value="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" />
+        <option value="$PROJECT_DIR$/src/CommandDistributor.java" />
       </list>
     </option>
   </component>
@@ -143,11 +183,13 @@
     <option name="width" value="1612" />
     <option name="height" value="876" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -171,12 +213,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CourseProject" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -221,10 +263,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="DB Browser" order="0" weight="0.32995737" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2153518" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2196162" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -234,13 +277,13 @@
       <window_info anchor="bottom" id="DB Execution Console" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.4978678" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.53678036" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49840087" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5021322" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.4632196" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -355,13 +398,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Request.java" />
-    <entry file="file://$PROJECT_DIR$/src/Methods/SQLMethods.java">
+    <entry file="file://$PROJECT_DIR$/src/Methods/DriverSQLMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -372,30 +412,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="204">
+          <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
           <folding>
-            <element signature="method#addUser#0;class#AdminSQLMethods#0" />
-            <element signature="method#addDriver#0;class#AdminSQLMethods#0" />
-            <element signature="method#deleteItemById#0;class#AdminSQLMethods#0" />
-            <element signature="method#clearTable#0;class#AdminSQLMethods#0" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Methods/DriverSQLMethods.java">
+    <entry file="file://$PROJECT_DIR$/src/Methods/SQLMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="493">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        <state relative-caret-position="367">
+          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#deleteItemById#0;class#AdminSQLMethods#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -404,22 +455,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CommandDistributor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="51" />
+        <state relative-caret-position="27">
+          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="28" column="63" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#626#627#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
           </folding>
         </state>
       </provider>

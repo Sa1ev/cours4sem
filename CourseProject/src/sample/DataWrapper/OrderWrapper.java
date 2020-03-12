@@ -10,18 +10,25 @@ public class OrderWrapper {
     private SimpleStringProperty orderid;
     private SimpleStringProperty driverid;
     private SimpleStringProperty userid;
+    private SimpleStringProperty startPoint;
+    private SimpleStringProperty finishPoint;
     private SimpleStringProperty distance;
     private SimpleStringProperty time;
     private SimpleStringProperty approved;
     private SimpleStringProperty inqueue;
+
+
+
     public OrderWrapper(String[] properties){
         orderid = new SimpleStringProperty(properties[0]);
         driverid = new SimpleStringProperty(properties[1]);
         userid = new SimpleStringProperty(properties[2]);
-        distance = new SimpleStringProperty(properties[3]);
-        time = new SimpleStringProperty(properties[4]);
-        approved = new SimpleStringProperty(properties[5]);
-        inqueue = new SimpleStringProperty(properties[6]);
+        startPoint = new SimpleStringProperty(properties[3]);
+        finishPoint = new SimpleStringProperty(properties[4]);
+        distance = new SimpleStringProperty(properties[5]);
+        time = new SimpleStringProperty(properties[6]);
+        approved = new SimpleStringProperty(properties[7]);
+        inqueue = new SimpleStringProperty(properties[8]);
     }
     public static ObservableList convertArrayList(ArrayList<String[]> list){
         if (!(list == null)){
@@ -32,6 +39,30 @@ public class OrderWrapper {
             return newList;
         }
         return null;
+    }
+
+    public String getStartPoint() {
+        return startPoint.get();
+    }
+
+    public SimpleStringProperty startPointProperty() {
+        return startPoint;
+    }
+
+    public void setStartPoint(String startPoint) {
+        this.startPoint.set(startPoint);
+    }
+
+    public String getFinishPoint() {
+        return finishPoint.get();
+    }
+
+    public SimpleStringProperty finishPointProperty() {
+        return finishPoint;
+    }
+
+    public void setFinishPoint(String finishPoint) {
+        this.finishPoint.set(finishPoint);
     }
 
     public String getOrderid() {
