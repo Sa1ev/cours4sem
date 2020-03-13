@@ -26,7 +26,7 @@ public class CommandListener implements Runnable {
                     //"1102 vehicle 12"
                     String str = in.readUTF();
                     System.out.println(str);
-                    String[] val = str.split("\\s");
+                    String[] val = str.split("凸");
                     System.out.println(Thread.currentThread());
                     Object obj = CommandDistributor.chooseRole(val);
                     out.writeObject(obj);

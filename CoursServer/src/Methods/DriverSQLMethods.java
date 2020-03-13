@@ -9,7 +9,7 @@ public class DriverSQLMethods extends SQLMethods {
         super(url, user, password);
     }
 
-    public ArrayList<String[]> getOrdersInQueue(int driverId){
+    public ArrayList<String[]> getOrdersInQueue(String driverId){
         ArrayList<String[]> value  = new ArrayList<>();
         try {
 
@@ -20,7 +20,7 @@ public class DriverSQLMethods extends SQLMethods {
                     "   AND table_name = 'orderList'"));
             tableCount.next();
             int columnCount=  tableCount.getInt(1);
-            ResultSet set = statement.executeQuery(String.format("Select * from orderList where driverid = %d and inqueue = 1", driverId));
+            ResultSet set = statement.executeQuery(String.format("Select * from orderList where driverid = %s and inqueue = 1", driverId));
             while (set.next()){
                 String[] oneRow = new String[columnCount];
                 for (int i = 0; i < columnCount; i++) {
@@ -35,7 +35,7 @@ public class DriverSQLMethods extends SQLMethods {
         return value;
     }
 
-    public ArrayList<String[]> getOrdersHistory(int driverId){
+    public ArrayList<String[]> getOrdersHistory(String driverId){
         ArrayList<String[]> value  = new ArrayList<>();
         try {
 
@@ -46,7 +46,7 @@ public class DriverSQLMethods extends SQLMethods {
                     "   AND table_name = 'orderList'"));
             tableCount.next();
             int columnCount=  tableCount.getInt(1);
-            ResultSet set = statement.executeQuery(String.format("Select * from orderList where driverid = %d and inqueue = 0", driverId));
+            ResultSet set = statement.executeQuery(String.format("Select * from orderList where driverid = %s and inqueue = 0", driverId));
             while (set.next()){
                 String[] oneRow = new String[columnCount];
                 for (int i = 0; i < columnCount; i++) {
@@ -59,6 +59,14 @@ public class DriverSQLMethods extends SQLMethods {
             e.printStackTrace();
         }
         return value;
+    }
+
+    public void changeOrder(String orderId, String decision){
+        try {
+            statement.execute(String.format("update orderlist set approved=%s, inqueue=0 where id = %s;",decision,orderId));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

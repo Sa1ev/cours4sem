@@ -27,7 +27,7 @@ public class Account {
             return true;
         }
         else if (role == "Driver"){
-            ClientThread thread = new ClientThread(1106, "Driver "+number+" "+password);
+            ClientThread thread = new ClientThread(1106, "Driver"+Global.splitSymbol+number+Global.splitSymbol+password);
             thread.start();
             try {
                 thread.join();
@@ -48,7 +48,7 @@ public class Account {
             return false;
         }
         else if (role == "User"){
-            ClientThread thread = new ClientThread(1106, "User "+number+" "+password);
+            ClientThread thread = new ClientThread(1106, "User"+Global.splitSymbol+number+Global.splitSymbol+password);
             thread.start();
             try {
                 thread.join();

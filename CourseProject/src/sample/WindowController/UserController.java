@@ -4,10 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
 import sample.DataWrapper.DriverWrapper;
@@ -25,7 +22,7 @@ public class UserController {
     }
     @FXML
     public void changeToDriverClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(" ");
+        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
         if (Account.authorization("Driver", value[0], value[1])){
             ScreenController.getINSTANCE().activate("driver");
         }
@@ -36,6 +33,10 @@ public class UserController {
         ScreenController.getINSTANCE().activate("guest");
     }
 
+    @FXML
+    Button createButton;
+    @FXML
+    Button rejectButton;
     @FXML
     TableView<DriverWrapper> driverTable;
     @FXML
@@ -49,33 +50,48 @@ public class UserController {
         initializeDriverTable();
         initializeOrderQueueTable();
         initializeOrderHistoryTable();
+        createButton.setDisable(true);
+        rejectButton.setDisable(true);
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        updateTable(tabPane.getSelectionModel().getSelectedIndex());
+                        createButton.setDisable(true);
+                        rejectButton.setDisable(true);
+                        orderQueueTable.getSelectionModel().clearSelection();
+                        driverTable.getSelectionModel().clearSelection();
+                        orderHistoryTable.getSelectionModel().clearSelection();
                     }
                 }
         );
+        driverTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                createButton.setDisable(false);
+            }
+        });
+        orderQueueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                rejectButton.setDisable(false);
+            }
+        });
+
+
     }
 
     void initializeDriverTable(){
         TableColumn<DriverWrapper, String> c1 = new TableColumn("Id");
         TableColumn<DriverWrapper, String> c2 = new TableColumn("Name");
         TableColumn<DriverWrapper, String> c3 = new TableColumn("Phone Number");
-        TableColumn<DriverWrapper, String> c4 = new TableColumn("Password");
         TableColumn<DriverWrapper, String> c5 = new TableColumn("Vehicle Id");
         TableColumn<DriverWrapper, String> c6 = new TableColumn("Licence Id");
         c1.setCellValueFactory(new PropertyValueFactory("id"));
         c2.setCellValueFactory(new PropertyValueFactory("Name"));
         c3.setCellValueFactory(new PropertyValueFactory("PhoneNumber"));
-        c4.setCellValueFactory(new PropertyValueFactory("Password"));
         c5.setCellValueFactory(new PropertyValueFactory("VehicleId"));
         c6.setCellValueFactory(new PropertyValueFactory("LicenceId"));
         driverTable.getColumns().add(c1);
         driverTable.getColumns().add(c2);
         driverTable.getColumns().add(c3);
-        driverTable.getColumns().add(c4);
         driverTable.getColumns().add(c5);
         driverTable.getColumns().add(c6);
     }
@@ -134,9 +150,29 @@ public class UserController {
     }
 
     public void createButtonClick(ActionEvent actionEvent) {
+        String value = WindowsCreator.createOrderWindow();
+        if (value != null){
+            new ClientThread(1302, driverTable.getSelectionModel().getSelectedItem().getId()+Global.splitSymbol+
+                    Account.id+Global.splitSymbol+
+                    value+Global.splitSymbol+getTime(11, value)).start();
+            updateTable(0);
+        }
+    }
+
+
+    String getTime(int speedMS, String orderValues){
+        int distance = new Integer(orderValues.split(Global.splitSymbol)[2]);
+        int hours = distance/3600;
+        distance-=hours*3600;
+        int minutes  = distance/60;
+        distance -= minutes*60;
+        return String.format("%d:%d:%d", hours, minutes, distance);
+
     }
 
     public void rejectButtonClick(ActionEvent actionEvent) {
+        new ClientThread(1304, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()).start();
+        updateTable(1);
     }
 
     public void updateButtonClick(ActionEvent actionEvent) {

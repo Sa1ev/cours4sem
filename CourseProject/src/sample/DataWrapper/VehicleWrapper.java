@@ -11,7 +11,6 @@ public class VehicleWrapper {
     private SimpleStringProperty Model;
     private SimpleStringProperty LicenceNumber;
     private SimpleStringProperty DriverId;
-    private SimpleStringProperty Mileage;
 
 
     public String getId() {
@@ -62,17 +61,6 @@ public class VehicleWrapper {
         this.DriverId.set(driverId);
     }
 
-    public String getMileage() {
-        return Mileage.get();
-    }
-
-    public SimpleStringProperty mileageProperty() {
-        return Mileage;
-    }
-
-    public void setMileage(String mileage) {
-        this.Mileage.set(mileage);
-    }
 
 
 
@@ -81,7 +69,6 @@ public class VehicleWrapper {
         Model = new SimpleStringProperty(properties[1]);
         LicenceNumber = new SimpleStringProperty(properties[2]);
         DriverId = new SimpleStringProperty(properties[3]);
-        Mileage = new SimpleStringProperty(properties[4]);
     }
 
     public static ObservableList convertArrayList(ArrayList<String[]> list){

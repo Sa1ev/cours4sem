@@ -35,13 +35,11 @@ public class UIPreloadThread extends  Thread{
                 return;
             case "Driver":
                 ((DriverController)controller).updateTable(0);
-
                 ((DriverController)controller).updateTable(1);
 
                 return;
             case "Guest":
                 ((GuestController)controller).updateTable(0);
-
                 return;
         }
     }

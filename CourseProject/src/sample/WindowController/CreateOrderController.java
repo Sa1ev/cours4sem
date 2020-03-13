@@ -7,13 +7,12 @@ import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 import sample.DataWrapper.DriverWrapper;
-import sample.DataWrapper.VehicleWrapper;
 import sample.Global;
 
 import java.util.regex.Pattern;
 
 
-public class CreateVehicleController {
+public class CreateOrderController {
     private String returningValue = null;
     @FXML
     Button createButton;
@@ -21,49 +20,47 @@ public class CreateVehicleController {
     Button rejectButton;
 
     @FXML
-    TextField modelField;
+    TextField startField;
     @FXML
-    TextField licenceField;
+    TextField finishField;
     @FXML
-    TextField driverIdField;
-
+    TextField distanceField;
 
     @FXML
     public void initialize(){
-
-        Pattern validModelText = Pattern.compile("^[A-Za-zА-Яа-я0-9\\-]{0,45}$");
-        setupPattern(validModelText, modelField, null);
-
-        Pattern validLicenceText = Pattern.compile("\\d{0,15}");
-        setupPattern(validLicenceText, licenceField, null);
-
-        Pattern validDriverText = Pattern.compile("\\d{0,9}");
-        setupPattern(validDriverText, driverIdField, null);
+        Pattern validIntegerText = Pattern.compile("^\\d{0,6}$");
+        setupPattern(validIntegerText, distanceField, null);
+        Pattern validNameText = Pattern.compile("^[A-Яа-яA-Za-z\\d.\\s]{0,30}$");
+        setupPattern(validNameText, startField, null);
+        setupPattern(validNameText, finishField, null);
 
     }
+    Pattern phone = Pattern.compile("\\d{11}");
+    Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
     public void createButtonClick(){
-        if (modelField.getText() != "" & licenceField.getText() != "" & driverIdField.getText() != ""){
-            returningValue = modelField.getText()+ Global.splitSymbol+licenceField.getText()+Global.splitSymbol+driverIdField.getText();
+        if ( distanceField.getText()!=""& startField.getText()!=""& finishField.getText()!=""){
+            returningValue = startField.getText()+ Global.splitSymbol+
+                    finishField.getText()+Global.splitSymbol+
+                    distanceField.getText();
         }
-        ((Stage)modelField.getScene().getWindow()).close();
+        ((Stage)startField.getScene().getWindow()).close();
 
     }
     @FXML
     public void rejectClick(){
-        ((Stage)modelField.getScene().getWindow()).close();
+        ((Stage)startField.getScene().getWindow()).close();
 
     }
 
     public String getReturningValue(){
         return returningValue;
     }
-    public void setValues(VehicleWrapper values){
-         modelField.setText(values.getModel());
-         licenceField.setText(values.getLicenceNumber());
-         driverIdField.setText(values.getDriverId());
+
+    private void setValues(DriverWrapper values){
 
     }
+
     private void setupPattern(Pattern pattern, TextField field, String defaultValue){
         TextFormatter<String> textFormatter = new TextFormatter<String>(new DefaultStringConverter(), defaultValue,
                 change -> {

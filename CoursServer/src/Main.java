@@ -9,24 +9,24 @@ import java.util.concurrent.Executors;
 public class Main {
     private static String url = "jdbc:mysql://localhost:3306/coursedb?useUnicode=true&serverTimezone=UTC";
     private static String user = "root";
-    private static String password = "qwerty";
-    static ExecutorService executeIt = Executors.newFixedThreadPool(2);
-    public static void main(String[] args) {
-        try (ServerSocket server = new ServerSocket(3345);
-             BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            while (!server.isClosed()) {
-                if (br.ready()) {
-                    String serverCommand = br.readLine();
-                    if (serverCommand.equalsIgnoreCase("quit")) {
-                        server.close();
-                        break;
+            private static String password = "qwerty";
+            static ExecutorService executeIt = Executors.newFixedThreadPool(2);
+            public static void main(String[] args) {
+                try (ServerSocket server = new ServerSocket(3345);
+                     BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+                    while (!server.isClosed()) {
+                        if (br.ready()) {
+                            String serverCommand = br.readLine();
+                            if (serverCommand.equalsIgnoreCase("quit")) {
+                                server.close();
+                                break;
+                            }
+                        }
+                        Socket client = server.accept();
+                        executeIt.execute(new CommandListener(client));
+                        System.out.println("Connection accepted.");
                     }
-                }
-                Socket client = server.accept();
-                executeIt.execute(new CommandListener(client));
-                System.out.println("Connection accepted.");
-            }
-            executeIt.shutdown();
+                    executeIt.shutdown();
         } catch (IOException e) {
             e.printStackTrace();
         }

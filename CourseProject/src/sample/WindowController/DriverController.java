@@ -21,7 +21,7 @@ public class DriverController {
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(" ");
+        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
         if (Account.authorization("User", value[0], value[1])){
             ScreenController.getINSTANCE().activate("user");
         }
@@ -31,7 +31,10 @@ public class DriverController {
         Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
-
+    @FXML
+    Button approveButton;
+    @FXML
+    Button rejectButton;
     @FXML
     TabPane tabPane;
     @FXML
@@ -43,14 +46,26 @@ public class DriverController {
     public void initialize() {
         initializeOrderQueueTable();
         initializeOrderHistoryTable();
+        approveButton.setDisable(true);
+        rejectButton.setDisable(true);
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        updateTable(tabPane.getSelectionModel().getSelectedIndex());
+                        approveButton.setDisable(true);
+                        rejectButton.setDisable(true);
+                        orderQueueTable.getSelectionModel().clearSelection();
+                        orderHistoryTable.getSelectionModel().clearSelection();
                     }
                 }
         );
+
+        orderQueueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                rejectButton.setDisable(false);
+                approveButton.setDisable(false);
+            }
+        });
     }
 
     void initializeOrderQueueTable(){
@@ -108,10 +123,20 @@ public class DriverController {
     }
 
     public void approveButtonClick(ActionEvent actionEvent) {
-    }
+        new ClientThread(1224, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()+Global.splitSymbol+"1").start();
+        updateTable(0);
+        updateTable(1);
+        approveButton.setDisable(true);
+        rejectButton.setDisable(true);}
 
     public void rejectButtonClick(ActionEvent actionEvent) {
-    }
+        new ClientThread(1224, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()+Global.splitSymbol+"0").start();
+        updateTable(0);
+        updateTable(1);
+        approveButton.setDisable(true);
+        rejectButton.setDisable(true);}
+
+
 
     public void updateButtonClick(ActionEvent actionEvent) {
         new UIPreloadThread(this).start();

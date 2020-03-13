@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import sample.DataWrapper.DriverWrapper;
+import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -47,7 +49,10 @@ public class CreateDriverController {
     @FXML
     public void createButtonClick(){
         if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & nameField.getText()!=""& vehicleIdField.getText()!=""& licenceIdField.getText()!=""){
-            returningValue = numberField.getText()+" "+passwordField.getText()+" "+nameField.getText()+" "+vehicleIdField.getText()+" "+licenceIdField.getText();
+            returningValue = numberField.getText()+ Global.splitSymbol+
+                    passwordField.getText()+Global.splitSymbol+
+                    nameField.getText()+Global.splitSymbol+
+                    vehicleIdField.getText()+Global.splitSymbol+licenceIdField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 
@@ -62,6 +67,14 @@ public class CreateDriverController {
         return returningValue;
     }
 
+    public void setValues(DriverWrapper values){
+        numberField.setText(values.getPhoneNumber());
+        passwordField.setText(values.getPassword());
+        nameField.setText(values.getName());
+        vehicleIdField.setText(values.getVehicleId());
+        licenceIdField.setText(values.getLicenceId());
+
+    }
 
     private void setupPattern(Pattern pattern, TextField field, String defaultValue){
         TextFormatter<String> textFormatter = new TextFormatter<String>(new DefaultStringConverter(), defaultValue,

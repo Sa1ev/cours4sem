@@ -31,18 +31,19 @@ public class CommandDistributor {
             case 1:
                 return adminSQLMethods.getTable(command[1]);
             case 2:
-                return AddRequest(command);
+                return addRequest(command);
             case 3:
-                return true;
+                return editRequest(command);
             case 4:
-                adminSQLMethods.deleteItemById(command[1], new Integer(command[2]));
+                adminSQLMethods.deleteItemById(command[1], command[2]);
                 return true;
             case 5:
                 adminSQLMethods.clearTable(command[1]);
                 return true;
             case 6:
                 return adminSQLMethods.getLineByPhoneAndPassword(command[1], new Long(command[2]), command[3]);
-
+            case 23:
+                return adminSQLMethods.getAvgTimeAndDistance(command[1], command[2]);
             default:
                 return null;
         }
@@ -52,9 +53,12 @@ public class CommandDistributor {
             case 1:
                 return driverSQLMethods.getTable(command[1]);
             case 21:
-                return driverSQLMethods.getOrdersInQueue(new Integer(command[1]));
+                return driverSQLMethods.getOrdersInQueue(command[1]);
             case 22:
-                return driverSQLMethods.getOrdersHistory(new Integer(command[1]));
+                return driverSQLMethods.getOrdersHistory((command[1]));
+            case 24:
+                driverSQLMethods.changeOrder(command[1], command[2]);
+                return true;
             default:
                 return null;
         }
@@ -63,10 +67,16 @@ public class CommandDistributor {
         switch (new Integer(command[0])%100){
             case 1:
                 return userSQLMethods.getTable(command[1]);
+            case 2:
+                userSQLMethods.addOrder(command[1], command[2],command[3],command[4],command[5],command[6]);
+                return true;
+            case 4:
+                userSQLMethods.deleteOrder(command[1]);
+                return true;
             case 21:
-                return driverSQLMethods.getOrdersInQueue(new Integer(command[1]));
+                return userSQLMethods.getOrdersInQueue((command[1]));
             case 22:
-                return driverSQLMethods.getOrdersHistory(new Integer(command[1]));
+                return userSQLMethods.getOrdersHistory((command[1]));
             default:
                 return null;
 
@@ -81,16 +91,33 @@ public class CommandDistributor {
         }
     }
 
-    private static Object AddRequest(String[] command){
+    private static Object addRequest(String[] command){
         switch (command[1]){
             case "User":
-                adminSQLMethods.addUser( new Long(command[2]), command[3],command[4]);
+                adminSQLMethods.addUser( (command[2]), command[3],command[4]);
                 return true;
             case "Vehicle":
-                adminSQLMethods.addVehicle(command[2], command[3], new Integer(command[4]));
+                adminSQLMethods.addVehicle(command[2], command[3], (command[4]));
                 return true;
             case "Driver":
-                adminSQLMethods.addDriver( new Long(command[3]), command[2], command[4], new Integer(command[5]),new Integer(command[6]));
+                adminSQLMethods.addDriver((command[2]), command[3], command[4], (command[5]),(command[6]));
+                return true;
+            case "Order":
+                return true;
+            default:
+                return null;
+        }
+    }
+    private static Object editRequest(String[] command){
+        switch (command[1]){
+            case "User":
+                adminSQLMethods.editUser((command[2]), (command[3]), command[4],command[5]);
+                return true;
+            case "Vehicle":
+                adminSQLMethods.editVehicle((command[2]),command[3], command[4], command[5]);
+                return true;
+            case "Driver":
+                adminSQLMethods.editDriver((command[2]), (command[3]), command[4], command[5], (command[6]),(command[7]));
                 return true;
             case "Order":
                 return true;

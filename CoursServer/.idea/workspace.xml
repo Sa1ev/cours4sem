@@ -5,60 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f1c1e13-e4b3-43fb-af2a-6e304e6164f6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/UIPreloadThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateDriverController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateUserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateVehicleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/cours4sem.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/Global.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateOrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CoursServer/CommandDistributor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/CommandDistributor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CoursServer/CommandListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/CommandListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CoursServer/Methods/AdminSQLMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/Methods/AdminSQLMethods.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CoursServer/Methods/DriverSQLMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/Methods/DriverSQLMethods.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CoursServer/Methods/UserSQLMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CoursServer/Methods/UserSQLMethods.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CommandDistributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CommandDistributor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CommandListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Methods/DriverSQLMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods/DriverSQLMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Methods/UserSQLMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods/UserSQLMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/AuthorizationCreator.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread$Commands.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ClientThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/DriverWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/DriverWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/UserWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/UserWrapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/VehicleWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/DataWrapper/VehicleWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ScreenController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/ScreenController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIUpdateThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIUpdateThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIPreloadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/UIPreloadThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AdminController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AuthorizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/AuthorizationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateDriverController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateDriverController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateUserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateVehicleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/CreateVehicleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/DriverController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/GuestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/GuestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowController/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/adminwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/adminwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/authorizationwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/authorizationwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/driverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/driverwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/guestwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/guestwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createdriverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createdriverwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createuserwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createuserwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createvehiclewindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/createvehiclewindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/userwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/out/production/CourseProject/sample/WindowsStorage/userwindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/AuthorizationCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/ClientThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/DriverWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/DriverWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/UserWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/UserWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/VehicleWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/DataWrapper/VehicleWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/ScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/ScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/UIUpdateThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/UIUpdateThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/UIPreloadThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/UIPreloadThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AuthorizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/AuthorizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateDriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateDriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateVehicleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/CreateVehicleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/DriverController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/GuestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/GuestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowController/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/adminwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/adminwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/authorizationwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/authorizationwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/driverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/driverwindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/guestwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/guestwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createdriverwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createdriverwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createuserwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createuserwindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createvehiclewindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/createvehiclewindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/userwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../CourseProject/src/sample/WindowsStorage/userwindow.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -76,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
+            <state relative-caret-position="435">
+              <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+            <state relative-caret-position="187">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CommandDistributor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+            <state relative-caret-position="612">
+              <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -118,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+            <state relative-caret-position="302">
+              <caret line="80" column="124" selection-start-line="80" selection-start-column="124" selection-end-line="80" selection-end-column="124" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,9 +127,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/src/mysql-connector-java-8.0.19.jar!/com/mysql/cj/jdbc/exceptions/SQLError.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/util/Formatter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
+            <state relative-caret-position="46121">
               <caret line="2792" column="16" selection-start-line="2792" selection-start-column="16" selection-end-line="2792" selection-end-column="16" />
             </state>
           </provider>
@@ -142,12 +147,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Methods/DriverSQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-177">
-              <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+            <state relative-caret-position="333">
+              <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#139#140#0" expanded="true" />
-                <element signature="e#181#182#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,8 +159,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Methods/SQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+            <state relative-caret-position="663">
+              <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,12 +171,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Methods/UserSQLMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="47" column="83" lean-forward="true" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
+            <state relative-caret-position="-704">
+              <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#135#136#0" expanded="true" />
-                <element signature="e#177#178#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -205,12 +206,12 @@
         <option value="$PROJECT_DIR$/src/Request.java" />
         <option value="$PROJECT_DIR$/src/SQLServer.java" />
         <option value="$PROJECT_DIR$/src/CommandServer.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Methods/SQLMethods.java" />
-        <option value="$PROJECT_DIR$/src/Methods/UserSQLMethods.java" />
-        <option value="$PROJECT_DIR$/src/Methods/DriverSQLMethods.java" />
         <option value="$PROJECT_DIR$/src/CommandListener.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Methods/UserSQLMethods.java" />
         <option value="$PROJECT_DIR$/src/CommandDistributor.java" />
+        <option value="$PROJECT_DIR$/src/Methods/DriverSQLMethods.java" />
         <option value="$PROJECT_DIR$/src/Methods/AdminSQLMethods.java" />
       </list>
     </option>
@@ -233,6 +234,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,12 +258,11 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CourseProject" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -311,7 +312,7 @@
     <editor active="true" />
     <layout>
       <window_info id="DB Browser" order="0" weight="0.32995737" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2217484" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2238806" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -321,13 +322,13 @@
       <window_info anchor="bottom" id="DB Execution Console" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.5362473" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49840087" weight="0.3997833" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.53411514" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.4968017" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.46375266" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.46588486" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -339,6 +340,30 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Methods/UserSQLMethods.java</url>
+          <line>64</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Methods/UserSQLMethods.java</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/CommandListener.java</url>
+          <line>31</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -378,13 +403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="73" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/src/mysql-connector-java-8.0.19.jar!/com/mysql/cj/jdbc/exceptions/SQLError.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
@@ -442,13 +460,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Request.java" />
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/util/Formatter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="12" column="69" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="46121">
+          <caret line="2792" column="16" selection-start-line="2792" selection-start-column="16" selection-end-line="2792" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -459,61 +474,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/util/Formatter.java">
+    <entry file="jar://$PROJECT_DIR$/src/mysql-connector-java-8.0.19.jar!/com/mysql/cj/jdbc/exceptions/SQLError.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="2792" column="16" selection-start-line="2792" selection-start-column="16" selection-end-line="2792" selection-end-column="16" />
+        <state relative-caret-position="198">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Methods/SQLMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        <state relative-caret-position="663">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Methods/DriverSQLMethods.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-177">
-          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+        <state relative-caret-position="435">
+          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#139#140#0" expanded="true" />
-            <element signature="e#181#182#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Methods/UserSQLMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="47" column="83" lean-forward="true" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
+        <state relative-caret-position="-704">
+          <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#135#136#0" expanded="true" />
-            <element signature="e#177#178#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CommandListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+        <state relative-caret-position="187">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -522,8 +523,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CommandDistributor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+        <state relative-caret-position="612">
+          <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Methods/DriverSQLMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Methods/AdminSQLMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="80" column="124" selection-start-line="80" selection-start-column="124" selection-end-line="80" selection-end-column="124" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

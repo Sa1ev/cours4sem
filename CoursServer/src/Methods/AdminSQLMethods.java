@@ -9,35 +9,90 @@ public class AdminSQLMethods extends SQLMethods {
         super(url, user, password);
     }
 
-    public void addVehicle(String model, String licenceNumber, int driverid){
+    public void addVehicle(String model, String licenceNumber, String driverid){
         try {
 
-            statement.execute(String.format("insert into vehicle( Model,LicenceNumber, DriverId) values('%s', %d, %d);", model, licenceNumber, driverid));
+            statement.execute(String.format("insert into vehicle( Model,LicenceNumber, DriverId) values('%s', %s, %s);", model, licenceNumber, driverid));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void addUser(long phoneNumber, String password, String name ){
+    public void addUser(String phoneNumber, String password, String name ){
         try {
 
-            statement.execute(String.format("insert into user( Name, Password, PhoneNumber) values(%s, %s, %d);", name, password, phoneNumber));
+            statement.execute(String.format("insert into user( Name, Password, PhoneNumber) values('%s', '%s', %s);", name, password, phoneNumber));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void addDriver( Long phoneNumber, String password, String name, int vehicleId, int licenceId ){
+    public void addDriver( String phoneNumber, String password, String name, String vehicleId, String licenceId ){
         try {
 
-            statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values(%s, %s, %d,%d,%s);",
-                    name, password,vehicleId,licenceId, phoneNumber));
+            statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values('%s', '%s', %s,%s,%s);",
+                    name, password,phoneNumber,vehicleId,licenceId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void deleteItemById(String tableName, int id){
+
+
+
+    public void editVehicle(String id, String model, String licenceNumber, String driverid){
         try {
-            statement.execute(String.format("Delete from %s where id = %d; ", tableName, id));
+
+            statement.execute(String.format("update vehicle set  Model='%s', LicenceNumber=%s, DriverId=%s where id = %s;",  model, licenceNumber, driverid,id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void editUser(String id,String phoneNumber, String password, String name ){
+        try {
+
+            statement.execute(String.format("update user set Name='%s', Password='%s', PhoneNumber=%s where id = %s;", name, password, phoneNumber,id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void editDriver(String id,String phoneNumber, String password, String name, String vehicleId, String licenceId ){
+        try {
+
+            statement.execute(String.format("update Driver set Name='%s', Password='%s', PhoneNumber=%s, vehicleid=%s, licenceid=%s where id = %s;",
+                    name, password,phoneNumber,vehicleId,licenceId, id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getAvgTimeAndDistance(String role, String id){
+        ArrayList<String> result = new ArrayList<>();
+        ResultSet set = null;
+        try {
+            set = statement.executeQuery(String.format("select SEC_TO_TIME(AVG(TIME_TO_SEC(time))) from orderlist where %sid = %s and approved = 1", role, id));
+            while (set.next()){
+                result.add(set.getString(1));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            set = statement.executeQuery(String.format("select AVG(distance) from orderlist where %sid = %s and approved = 1", role, id));
+            while (set.next()){
+                result.add(set.getString(1));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+    public void deleteItemById(String tableName, String id){
+        try {
+            statement.execute(String.format("Delete from %s where id = %s; ", tableName, id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,7 +116,7 @@ public class AdminSQLMethods extends SQLMethods {
                     "   AND table_name = '%s'", tableName));
             tableCount.next();
             int columnCount =  tableCount.getInt(1);
-            ResultSet set = statement.executeQuery(String.format("Select * from  %s where phonenumber = %d and password  = '%s'", tableName, phone, password));
+            ResultSet set = statement.executeQuery(String.format("Select * from  %s where phonenumber = %s and password  = '%s'", tableName, phone, password));
             while (set.next()){
                 String[] oneRow = new String[columnCount];
                 for (int i = 0; i < columnCount; i++) {

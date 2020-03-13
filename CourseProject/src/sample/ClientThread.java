@@ -26,7 +26,7 @@ public class ClientThread extends Thread{
     };
     public enum Commands{
         GET_TABLE(1), ADD_VALUE(2), EDIT_VALUE(3), DELETE_ONE_ELEMENT(4), CLEAR_TABLE(5), GET_PROFILE(6),
-        GET_ORDER_QUEUE(21), GET_ORDER_HISTORY(22);
+        GET_ORDER_QUEUE(21), GET_ORDER_HISTORY(22), GET_AVG_TIME_AND_DISTANCE(23), APPROVE_OR_DICLINE(24);
         private int value;
         private Commands(int value) {
             this.value = value;
@@ -67,7 +67,7 @@ public class ClientThread extends Thread{
             try {
                 DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                String request = code+" "+command;
+                String request = code+Global.splitSymbol+command;
                 oos.writeUTF(request);
                 System.out.println("reading object on thread: "+Thread.currentThread());
                 while (result == null){

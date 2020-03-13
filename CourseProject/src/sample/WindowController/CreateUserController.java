@@ -6,6 +6,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import sample.DataWrapper.DriverWrapper;
+import sample.DataWrapper.UserWrapper;
+import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -41,7 +44,7 @@ public class CreateUserController {
     @FXML
     public void createButtonClick(){
         if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & nameField.getText()!=""){
-            returningValue = numberField.getText()+" "+passwordField.getText()+" "+nameField.getText();
+            returningValue = numberField.getText()+Global.splitSymbol+passwordField.getText()+ Global.splitSymbol+nameField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 
@@ -56,6 +59,12 @@ public class CreateUserController {
         return returningValue;
     }
 
+    public void setValues(UserWrapper values){
+        numberField.setText(values.getPhoneNumber());
+        passwordField.setText(values.getPassword());
+        nameField.setText(values.getName());
+
+    }
     private void setupPattern(Pattern pattern, TextField field, String defaultValue){
         TextFormatter<String> textFormatter = new TextFormatter<String>(new DefaultStringConverter(), defaultValue,
                 change -> {

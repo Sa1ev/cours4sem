@@ -9,6 +9,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ public class AuthorizationController {
     @FXML
     public void loginClick(){
         if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches()){
-            returningValue = numberField.getText()+" "+passwordField.getText();
+            returningValue = numberField.getText()+ Global.splitSymbol+passwordField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 
