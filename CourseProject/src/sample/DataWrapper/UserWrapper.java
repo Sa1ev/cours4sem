@@ -18,6 +18,10 @@ public class UserWrapper {
         Password = new SimpleStringProperty(properties[3]);
 
     }
+    public boolean isMatching(String text){
+        return id.get().contains(text) | Name.get().contains(text) | PhoneNumber.get().contains(text);
+    }
+
     public static ObservableList convertArrayList(ArrayList<String[]> list){
         if (!(list == null)){
             ObservableList newList = FXCollections.observableArrayList();

@@ -1,3 +1,5 @@
+import Methods.AdminSQLMethods;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,8 +11,8 @@ import java.util.concurrent.Executors;
 public class Main {
     private static String url = "jdbc:mysql://localhost:3306/coursedb?useUnicode=true&serverTimezone=UTC";
     private static String user = "root";
-            private static String password = "qwerty";
-            static ExecutorService executeIt = Executors.newFixedThreadPool(2);
+    private static String password = "qwerty";
+    static ExecutorService executeIt = Executors.newFixedThreadPool(2);
             public static void main(String[] args) {
                 try (ServerSocket server = new ServerSocket(3345);
                      BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {

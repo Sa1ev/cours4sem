@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -60,7 +61,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createDriverCreationWindow(){
+    public static String createDriverCreationWindow(ObservableList<VehicleWrapper> list){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createdriverwindow.fxml"));
@@ -75,8 +76,10 @@ public class WindowsCreator {
             stage.setMinHeight(300);
             stage.setMaxWidth(400);
             stage.setMaxHeight(300);
+            CreateDriverController controller = loader.<CreateDriverController>getController();
+            controller.fillChoiceBox(list);
             stage.showAndWait();
-            return loader.<CreateDriverController>getController().getReturningValue();
+            return controller.getReturningValue();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -154,7 +157,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createDriverEditWindow(DriverWrapper item){
+    public static String createDriverEditWindow(DriverWrapper item, ObservableList<VehicleWrapper> list){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createdriverwindow.fxml"));
@@ -170,8 +173,10 @@ public class WindowsCreator {
             stage.setMinHeight(300);
             stage.setMaxWidth(400);
             stage.setMaxHeight(300);
+            CreateDriverController controller = loader.<CreateDriverController>getController();
+            controller.fillChoiceBox(list);
             stage.showAndWait();
-            return loader.<CreateDriverController>getController().getReturningValue();
+            return controller.getReturningValue();
         }
         catch (IOException e) {
             e.printStackTrace();

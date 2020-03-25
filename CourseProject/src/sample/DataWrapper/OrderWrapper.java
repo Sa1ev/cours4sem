@@ -16,6 +16,7 @@ public class OrderWrapper {
     private SimpleStringProperty time;
     private SimpleStringProperty approved;
     private SimpleStringProperty inqueue;
+    private SimpleStringProperty datatime;
 
 
 
@@ -29,7 +30,19 @@ public class OrderWrapper {
         time = new SimpleStringProperty(properties[6]);
         approved = new SimpleStringProperty(properties[7]);
         inqueue = new SimpleStringProperty(properties[8]);
+        datatime = new SimpleStringProperty(properties[9]);
     }
+
+    public boolean isMatching(String text){
+        return orderid.get().contains(text) | driverid.get().contains(text) | userid.get().contains(text) | startPoint.get().contains(text) | finishPoint.get().contains(text);
+    }
+    public boolean isMatchingByDriver(String text){
+        return orderid.get().contains(text) | driverid.get().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text) ;
+    }
+    public boolean isMatchingByUser(String text){
+        return orderid.get().contains(text)  | userid.get().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text);
+    }
+
     public static ObservableList convertArrayList(ArrayList<String[]> list){
         if (!(list == null)){
             ObservableList newList = FXCollections.observableArrayList();
@@ -150,4 +163,15 @@ public class OrderWrapper {
     }
 
 
+    public String getDatatime() {
+        return datatime.get();
+    }
+
+    public SimpleStringProperty datatimeProperty() {
+        return datatime;
+    }
+
+    public void setDatatime(String datatime) {
+        this.datatime.set(datatime);
+    }
 }

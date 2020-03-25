@@ -1,5 +1,6 @@
 package sample.DataWrapper;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,10 @@ public class VehicleWrapper {
     private SimpleStringProperty LicenceNumber;
     private SimpleStringProperty DriverId;
 
-
+    public boolean isMatching(String text){
+        Boolean a =  id.get().contains(text) | Model.get().contains(text) | LicenceNumber.get().contains(text);
+        return a;
+    }
     public String getId() {
         return id.get();
     }

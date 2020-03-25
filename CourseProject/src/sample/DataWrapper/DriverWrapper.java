@@ -22,6 +22,11 @@ public class DriverWrapper {
         LicenceId = new SimpleStringProperty(properties[5]);
 
     }
+
+    public boolean isMatching(String text){
+        return id.get().contains(text) | Name.get().contains(text) | PhoneNumber.get().contains(text);
+    }
+
     public static ObservableList convertArrayList(ArrayList<String[]> list){
         if (!(list == null)){
             ObservableList newList = FXCollections.observableArrayList();

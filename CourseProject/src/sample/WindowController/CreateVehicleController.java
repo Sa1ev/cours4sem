@@ -24,8 +24,6 @@ public class CreateVehicleController {
     TextField modelField;
     @FXML
     TextField licenceField;
-    @FXML
-    TextField driverIdField;
 
 
     @FXML
@@ -37,14 +35,12 @@ public class CreateVehicleController {
         Pattern validLicenceText = Pattern.compile("\\d{0,15}");
         setupPattern(validLicenceText, licenceField, null);
 
-        Pattern validDriverText = Pattern.compile("\\d{0,9}");
-        setupPattern(validDriverText, driverIdField, null);
 
     }
     @FXML
     public void createButtonClick(){
-        if (modelField.getText() != "" & licenceField.getText() != "" & driverIdField.getText() != ""){
-            returningValue = modelField.getText()+ Global.splitSymbol+licenceField.getText()+Global.splitSymbol+driverIdField.getText();
+        if (modelField.getText() != "" & licenceField.getText() != ""){
+            returningValue = modelField.getText()+ Global.splitSymbol+licenceField.getText();
         }
         ((Stage)modelField.getScene().getWindow()).close();
 
@@ -61,7 +57,6 @@ public class CreateVehicleController {
     public void setValues(VehicleWrapper values){
          modelField.setText(values.getModel());
          licenceField.setText(values.getLicenceNumber());
-         driverIdField.setText(values.getDriverId());
 
     }
     private void setupPattern(Pattern pattern, TextField field, String defaultValue){

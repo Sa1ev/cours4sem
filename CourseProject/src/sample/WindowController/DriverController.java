@@ -2,18 +2,25 @@ package sample.WindowController;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
+import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
+import sample.DataWrapper.UserWrapper;
+import sample.DataWrapper.VehicleWrapper;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DriverController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
+    ObservableList<OrderWrapper> orderQueueTableItems= null;
+    ObservableList<OrderWrapper> orderHistoryTableItems= null;
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
         Account.authorization("Admin", null, null);
@@ -21,9 +28,12 @@ public class DriverController {
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
-        if (Account.authorization("User", value[0], value[1])){
-            ScreenController.getINSTANCE().activate("user");
+        String winResult = WindowsCreator.createAuthorizationWindow();
+        if (winResult != null){
+        String[] value = winResult.split(Global.splitSymbol);
+            if (Account.authorization("User", value[0], value[1])){
+                ScreenController.getINSTANCE().activate("user");
+            }
         }
     }
     @FXML
@@ -31,6 +41,8 @@ public class DriverController {
         Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
+    @FXML
+    TextField searchTextBox;
     @FXML
     Button approveButton;
     @FXML
@@ -56,6 +68,7 @@ public class DriverController {
                         rejectButton.setDisable(true);
                         orderQueueTable.getSelectionModel().clearSelection();
                         orderHistoryTable.getSelectionModel().clearSelection();
+                        searchTextBox.clear();
                     }
                 }
         );
@@ -66,8 +79,39 @@ public class DriverController {
                 approveButton.setDisable(false);
             }
         });
+        searchTextBox.textProperty().addListener(
+                (observable, oldValue, newValue) -> filterTextBox(newValue));
     }
 
+    void filterTextBox(String value){
+        ObservableList filtered = FXCollections.observableArrayList();
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                if (orderQueueTableItems==null){
+                    orderQueueTableItems = orderQueueTable.getItems();
+                }
+                for (int i = 0; i <orderQueueTableItems.size() ; i++) {
+                    OrderWrapper item = orderQueueTableItems.get(i);
+                    if (item.isMatchingByUser(value)){
+                        filtered.add(item);
+                    }
+                }
+                orderQueueTable.setItems(filtered);
+                break;
+            case 1:
+                if (orderHistoryTableItems==null){
+                    orderHistoryTableItems = orderHistoryTable.getItems();
+                }
+                for (int i = 0; i <orderHistoryTableItems.size() ; i++) {
+                    OrderWrapper item = orderHistoryTableItems.get(i);
+                    if (item.isMatchingByUser(value)){
+                        filtered.add(item);
+                    }
+                }
+                orderHistoryTable.setItems(filtered);
+                break;
+        }
+    }
     void initializeOrderQueueTable(){
         TableColumn<OrderWrapper, String> c1 = new TableColumn("Order Id");
         TableColumn<OrderWrapper, String> c3 = new TableColumn("User Id");
@@ -116,9 +160,11 @@ public class DriverController {
         switch (index){
             case 0:
                 exec.submit(new UIUpdateThread(orderQueueTable , new ClientThread(1221, Integer.toString(Account.id)), "OrderWrapper"));
+                orderQueueTableItems= null;
                 break;
             case 1:
                 exec.submit(new UIUpdateThread(orderHistoryTable , new ClientThread(1222, Integer.toString(Account.id)), "OrderWrapper"));
+                orderHistoryTableItems= null;
         }
     }
 

@@ -26,7 +26,7 @@ public class ClientThread extends Thread{
     };
     public enum Commands{
         GET_TABLE(1), ADD_VALUE(2), EDIT_VALUE(3), DELETE_ONE_ELEMENT(4), CLEAR_TABLE(5), GET_PROFILE(6),
-        GET_ORDER_QUEUE(21), GET_ORDER_HISTORY(22), GET_AVG_TIME_AND_DISTANCE(23), APPROVE_OR_DICLINE(24);
+        GET_ORDER_QUEUE(21), GET_ORDER_HISTORY(22), GET_AVG_TIME_AND_DISTANCE(31), APPROVE_OR_DICLINE(24), GET_REPORT(32);
         private int value;
         private Commands(int value) {
             this.value = value;

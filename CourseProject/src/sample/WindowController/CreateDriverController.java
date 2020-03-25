@@ -1,12 +1,16 @@
 package sample.WindowController;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 import sample.DataWrapper.DriverWrapper;
+import sample.DataWrapper.VehicleWrapper;
 import sample.Global;
 
 import java.util.regex.Pattern;
@@ -26,7 +30,7 @@ public class CreateDriverController {
     @FXML
     TextField nameField;
     @FXML
-    TextField vehicleIdField;
+    ChoiceBox vehicleBox;
     @FXML
     TextField licenceIdField;
 
@@ -38,21 +42,20 @@ public class CreateDriverController {
         setupPattern(validPasswordText, passwordField, null);
         Pattern validNameText = Pattern.compile("^[A-Яа-яA-Za-z\\s]{0,30}$");
         setupPattern(validNameText, nameField, null);
-        Pattern validVehicleIdText = Pattern.compile("^\\d{0,9}$");
-        setupPattern(validVehicleIdText, vehicleIdField, null);
         Pattern validLicenceText = Pattern.compile("^\\d{0,9}$");
         setupPattern(validLicenceText, licenceIdField, null);
+
 
     }
     Pattern phone = Pattern.compile("\\d{11}");
     Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
     public void createButtonClick(){
-        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & nameField.getText()!=""& vehicleIdField.getText()!=""& licenceIdField.getText()!=""){
+        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & nameField.getText()!=""& licenceIdField.getText()!=""){
             returningValue = numberField.getText()+ Global.splitSymbol+
                     passwordField.getText()+Global.splitSymbol+
                     nameField.getText()+Global.splitSymbol+
-                    vehicleIdField.getText()+Global.splitSymbol+licenceIdField.getText();
+                    vehicleBox.getSelectionModel().getSelectedItem().toString()+Global.splitSymbol+licenceIdField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 
@@ -71,7 +74,6 @@ public class CreateDriverController {
         numberField.setText(values.getPhoneNumber());
         passwordField.setText(values.getPassword());
         nameField.setText(values.getName());
-        vehicleIdField.setText(values.getVehicleId());
         licenceIdField.setText(values.getLicenceId());
 
     }
@@ -86,5 +88,15 @@ public class CreateDriverController {
                     } else return null;
                 });
         field.setTextFormatter(textFormatter);
+    }
+
+    public void fillChoiceBox(ObservableList<VehicleWrapper> list){
+        ObservableList myList = FXCollections.observableArrayList();
+
+        for (int i = 0; i < list.size(); i++) {
+            myList.add(list.get(i).getId());
+        }
+        vehicleBox.setItems(myList);
+        vehicleBox.getSelectionModel().select(0);
     }
 }

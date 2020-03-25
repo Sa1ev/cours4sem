@@ -2,6 +2,8 @@ package sample.WindowController;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,11 +15,18 @@ import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AdminController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
+    ObservableList<VehicleWrapper> vehicleTableItems = null;
+    ObservableList<DriverWrapper> driverTableItems= null;
+    ObservableList<UserWrapper> userTableItems= null;
+    ObservableList<OrderWrapper> orderTableItems= null;
+    @FXML
+    TextField searchTextBox;
     @FXML
     Button editButton;
     @FXML
@@ -25,7 +34,10 @@ public class AdminController {
     @FXML
     Button infoButton;
     @FXML
+    Button reportButton;
+    @FXML
     TabPane tabPane;
+
     @FXML
     TableView<VehicleWrapper> vehicleTable;
     @FXML
@@ -44,16 +56,22 @@ public class AdminController {
     Tab orderTab;
     @FXML
     public void changeToDriverClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
-        if (Account.authorization("Driver", value[0], value[1])){
-            ScreenController.getINSTANCE().activate("driver");
+        String winResult = WindowsCreator.createAuthorizationWindow();
+        if (winResult != null){
+        String[] value = winResult.split(Global.splitSymbol);
+            if (Account.authorization("Driver", value[0], value[1])){
+                ScreenController.getINSTANCE().activate("driver");
+            }
         }
     }
     @FXML
     public void changeToUserClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
-        if (Account.authorization("User", value[0], value[1])){
-            ScreenController.getINSTANCE().activate("user");
+        String winResult = WindowsCreator.createAuthorizationWindow();
+        if (winResult != null){
+        String[] value = winResult.split(Global.splitSymbol);
+            if (Account.authorization("User", value[0], value[1])){
+                ScreenController.getINSTANCE().activate("user");
+            }
         }
     }
     @FXML
@@ -61,14 +79,12 @@ public class AdminController {
         Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
-    @FXML
-    public void button1Click(ActionEvent actionEvent) throws InterruptedException {
-
-    }
 
     public AdminController(){
-
     }
+
+
+
     @FXML
     public void initialize() {
         initializeVehicleTable();
@@ -89,14 +105,70 @@ public class AdminController {
                         driverTable.getSelectionModel().clearSelection();
                         vehicleTable.getSelectionModel().clearSelection();
                         orderTable.getSelectionModel().clearSelection();
+                        searchTextBox.clear();
                     }
                 }
         );
         setTableListener(driverTable);
         setTableListener(userTable);
         setTableListener(vehicleTable);
+        searchTextBox.textProperty().addListener(
+                (observable, oldValue, newValue) -> filterTextBox(newValue));
 
+    }
 
+    void filterTextBox(String value){
+        ObservableList filtered = FXCollections.observableArrayList();
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                if (vehicleTableItems==null){
+                    vehicleTableItems = FXCollections.observableArrayList(vehicleTable.getItems());
+                }
+                for (int i = 0; i <vehicleTableItems.size() ; i++) {
+                    VehicleWrapper item = vehicleTableItems.get(i);
+                    if (item.isMatching(value)){
+                        filtered.add(item);
+                    }
+                }
+                vehicleTable.setItems(filtered);
+                break;
+            case 1:
+                if (userTableItems==null){
+                    userTableItems = FXCollections.observableArrayList(userTable.getItems());
+                }
+                for (int i = 0; i <userTableItems.size() ; i++) {
+                    UserWrapper item = userTableItems.get(i);
+                    if (item.isMatching(value)){
+                        filtered.add(item);
+                    }
+                }
+                userTable.setItems(filtered);
+                break;
+            case 2:
+                if (driverTableItems==null){
+                    driverTableItems = FXCollections.observableArrayList(driverTable.getItems());
+                }
+                for (int i = 0; i <driverTableItems.size() ; i++) {
+                    DriverWrapper item = driverTableItems.get(i);
+                    if (item.isMatching(value)){
+                        filtered.add(item);
+                    }
+                }
+                driverTable.setItems(filtered);
+                break;
+
+            case 3:
+                if (orderTableItems==null){
+                    orderTableItems = FXCollections.observableArrayList(orderTable.getItems());
+                }
+                for (int i = 0; i <orderTableItems.size() ; i++) {
+                    OrderWrapper item = orderTableItems.get(i);
+                    if (item.isMatching(value)){
+                        filtered.add(item);
+                    }
+                }
+                orderTable.setItems(filtered);
+        }
     }
 
 
@@ -161,6 +233,7 @@ public class AdminController {
         TableColumn<OrderWrapper, String> c7 = new TableColumn("Time");
         TableColumn<OrderWrapper, String> c8 = new TableColumn("Approved");
         TableColumn<OrderWrapper, String> c9 = new TableColumn("In queue");
+        TableColumn<OrderWrapper, String> c10 = new TableColumn("Date");
         c1.setCellValueFactory(new PropertyValueFactory("orderid"));
         c2.setCellValueFactory(new PropertyValueFactory("driverid"));
         c3.setCellValueFactory(new PropertyValueFactory("userid"));
@@ -170,6 +243,7 @@ public class AdminController {
         c7.setCellValueFactory(new PropertyValueFactory("time"));
         c8.setCellValueFactory(new PropertyValueFactory("approved"));
         c9.setCellValueFactory(new PropertyValueFactory("inqueue"));
+        c10.setCellValueFactory(new PropertyValueFactory("datatime"));
         orderTable.getColumns().add(c1);
         orderTable.getColumns().add(c2);
         orderTable.getColumns().add(c3);
@@ -179,27 +253,33 @@ public class AdminController {
         orderTable.getColumns().add(c7);
         orderTable.getColumns().add(c8);
         orderTable.getColumns().add(c9);
+        orderTable.getColumns().add(c10);
     }
-
     public void updateTable(int index) {
         switch (index) {
             case 0:
-
                 exec.submit(new UIUpdateThread(vehicleTable, new ClientThread(1101, "Vehicle"), "VehicleWrapper"));
+                vehicleTableItems = null;
                 break;
             case 1:
                 exec.submit(new UIUpdateThread(userTable, new ClientThread(1101, "User"), "UserWrapper"));
+                userTableItems = null;
                 break;
             case 2:
                 exec.submit(new UIUpdateThread(driverTable, new ClientThread(1101, "Driver"), "DriverWrapper"));
+                driverTableItems = null;
                 break;
             case 3:
                 exec.submit(new UIUpdateThread(orderTable, new ClientThread(1101, "OrderList"), "OrderWrapper"));
+                orderTableItems = null;
                 break;
         }
     }
 
+
+
     public void updateButtonClick(ActionEvent actionEvent) {
+        searchTextBox.clear();
        new UIPreloadThread(this).start();
     }
 
@@ -265,7 +345,11 @@ public class AdminController {
                     new ClientThread(1102, "User"+Global.splitSymbol+value).start();
                     updateTable(1);}
                 break;
-            case 2:value = WindowsCreator.createDriverCreationWindow();
+            case 2:
+                if (vehicleTableItems==null){
+                    vehicleTableItems = FXCollections.observableArrayList(vehicleTable.getItems());
+                }
+                value = WindowsCreator.createDriverCreationWindow(vehicleTableItems);
 
                 if (value != null){
                     new ClientThread(1102, "Driver"+Global.splitSymbol+value).start();
@@ -282,8 +366,8 @@ public class AdminController {
                 value = WindowsCreator.createVehicleEditWindow(vehicleItem);
                 if (value != null){
                     new ClientThread(1103, "Vehicle"+Global.splitSymbol+vehicleItem.getId()+Global.splitSymbol+value).start();
-                    updateTable(0);
                 }
+                updateTable(0);
                 break;
             case 1:
                 UserWrapper userItem = userTable.getSelectionModel().getSelectedItem();
@@ -293,8 +377,11 @@ public class AdminController {
                 updateTable(1);}
                 break;
             case 2:
+                if (vehicleTableItems==null){
+                    vehicleTableItems = FXCollections.observableArrayList(vehicleTable.getItems());
+                }
                 DriverWrapper driverItem = driverTable.getSelectionModel().getSelectedItem();
-                value = WindowsCreator.createDriverEditWindow(driverTable.getSelectionModel().getSelectedItem());
+                value = WindowsCreator.createDriverEditWindow(driverTable.getSelectionModel().getSelectedItem(),vehicleTableItems);
                 if (value != null){
                 new ClientThread(1103, "Driver"+Global.splitSymbol+driverItem.getId()+Global.splitSymbol+value).start();
                 updateTable(2);}
@@ -334,5 +421,19 @@ public class AdminController {
                 infoButton.setDisable(false);
             }
         });
+    }
+
+    public void reportButtonClick(ActionEvent actionEvent) {
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                new VehicleReportCreateThread().start();
+                break;
+            case 1:
+                new UserReportCreateThread().start();
+                break;
+            case 2:
+                new DriverReportCreateThread().start();
+                break;
+        }
     }
 }

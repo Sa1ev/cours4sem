@@ -42,8 +42,10 @@ public class CommandDistributor {
                 return true;
             case 6:
                 return adminSQLMethods.getLineByPhoneAndPassword(command[1], new Long(command[2]), command[3]);
-            case 23:
-                return adminSQLMethods.getAvgTimeAndDistance(command[1], command[2]);
+            case 31:
+                return adminSQLMethods.getAvgTimeAndDistanceOfCertainId(command[1], command[2]);
+            case 32:
+                return getReportRequest(command);
             default:
                 return null;
         }
@@ -97,7 +99,7 @@ public class CommandDistributor {
                 adminSQLMethods.addUser( (command[2]), command[3],command[4]);
                 return true;
             case "Vehicle":
-                adminSQLMethods.addVehicle(command[2], command[3], (command[4]));
+                adminSQLMethods.addVehicle(command[2], command[3]);
                 return true;
             case "Driver":
                 adminSQLMethods.addDriver((command[2]), command[3], command[4], (command[5]),(command[6]));
@@ -114,7 +116,7 @@ public class CommandDistributor {
                 adminSQLMethods.editUser((command[2]), (command[3]), command[4],command[5]);
                 return true;
             case "Vehicle":
-                adminSQLMethods.editVehicle((command[2]),command[3], command[4], command[5]);
+                adminSQLMethods.editVehicle((command[2]),command[3], command[4]);
                 return true;
             case "Driver":
                 adminSQLMethods.editDriver((command[2]), (command[3]), command[4], command[5], (command[6]),(command[7]));
@@ -125,4 +127,22 @@ public class CommandDistributor {
                 return null;
         }
     }
+    private static Object getReportRequest(String[] command){
+        switch (command[1]){
+            case "User":
+
+                return adminSQLMethods.getUserStatistics();
+            case "Vehicle":
+
+                return adminSQLMethods.getVehicleStatistics();
+            case "Driver":
+
+                return adminSQLMethods.getDriverStatistics();
+            default:
+                return null;
+        }
+    }
+
+
+
 }

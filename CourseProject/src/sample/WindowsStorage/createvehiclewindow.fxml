@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WindowController.CreateVehicleController">
+<AnchorPane minHeight="201.0" minWidth="400.0" prefHeight="201.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WindowController.CreateVehicleController">
    <children>
       <Button fx:id="createButton" layoutX="285.0" layoutY="262.0" mnemonicParsing="false" onAction="#createButtonClick" text="Сохранить" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="93.0" />
       <Button fx:id="rejectButton" layoutX="355.0" layoutY="262.0" mnemonicParsing="false" onAction="#rejectClick" text="Отмена" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
@@ -13,7 +13,5 @@
       <Text layoutX="183.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Модель" wrappingWidth="149.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="32.0" />
       <TextField fx:id="licenceField" layoutX="22.0" layoutY="67.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="72.0" />
       <Text layoutX="178.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер лицензии" wrappingWidth="137.115234375" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="76.05078125" />
-      <TextField fx:id="driverIdField" layoutX="23.0" layoutY="118.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="112.0" />
-      <Text layoutX="183.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id водителя" wrappingWidth="113.115234375" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="116.0" />
    </children>
 </AnchorPane>

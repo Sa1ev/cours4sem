@@ -9,10 +9,10 @@ public class AdminSQLMethods extends SQLMethods {
         super(url, user, password);
     }
 
-    public void addVehicle(String model, String licenceNumber, String driverid){
+    public void addVehicle(String model, String licenceNumber){
         try {
 
-            statement.execute(String.format("insert into vehicle( Model,LicenceNumber, DriverId) values('%s', %s, %s);", model, licenceNumber, driverid));
+            statement.execute(String.format("insert into vehicle(Model,LicenceNumber) values('%s', %s);", model, licenceNumber));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -28,9 +28,15 @@ public class AdminSQLMethods extends SQLMethods {
     }
     public void addDriver( String phoneNumber, String password, String name, String vehicleId, String licenceId ){
         try {
-
+            statement.execute(String.format("update Driver set vehicleid=null where vehicleid = %s;", vehicleId));
             statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values('%s', '%s', %s,%s,%s);",
                     name, password,phoneNumber,vehicleId,licenceId));
+            ResultSet set = statement.executeQuery(String.format("Select max(id) from vehicle;"));
+            String driverId = "-1";
+            while (set.next()){
+                driverId = set.getString(1);
+            }
+            statement.execute(String.format("update vehicle set driverid=%s where id = %s;", driverId, vehicleId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,10 +44,10 @@ public class AdminSQLMethods extends SQLMethods {
 
 
 
-    public void editVehicle(String id, String model, String licenceNumber, String driverid){
+    public void editVehicle(String id, String model, String licenceNumber){
         try {
 
-            statement.execute(String.format("update vehicle set  Model='%s', LicenceNumber=%s, DriverId=%s where id = %s;",  model, licenceNumber, driverid,id));
+            statement.execute(String.format("update vehicle set  Model='%s', LicenceNumber=%s where id = %s;",  model, licenceNumber, id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,15 +63,17 @@ public class AdminSQLMethods extends SQLMethods {
     }
     public void editDriver(String id,String phoneNumber, String password, String name, String vehicleId, String licenceId ){
         try {
-
+            statement.execute(String.format("update Driver set vehicleid=null where vehicleid = %s;", vehicleId));
+            statement.execute(String.format("update vehicle set driverid=null where driverid = %s;", id));
             statement.execute(String.format("update Driver set Name='%s', Password='%s', PhoneNumber=%s, vehicleid=%s, licenceid=%s where id = %s;",
                     name, password,phoneNumber,vehicleId,licenceId, id));
+            statement.execute(String.format("update vehicle set driverid=%s where id = %s;", id, vehicleId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<String> getAvgTimeAndDistance(String role, String id){
+    public ArrayList<String> getAvgTimeAndDistanceOfCertainId(String role, String id){
         ArrayList<String> result = new ArrayList<>();
         ResultSet set = null;
         try {
@@ -129,5 +137,218 @@ public class AdminSQLMethods extends SQLMethods {
             e.printStackTrace();
         }
         return value;
+    }
+
+
+    public ArrayList<String[]> getDriverStatistics(){
+        ArrayList<String[]> statistics = new ArrayList<>();
+        statistics.add(new String[]{getAvgTime(), getAvgDistance()});
+        statistics.add(getMaxDriverValues());
+        statistics.add(getMinDriverValues());
+        statistics.add(getMaxSumDriverValues());
+        statistics.add(getMaxSumFromLastMonthDriverValues());
+        return statistics;
+    }
+
+    public ArrayList<String[]> getUserStatistics(){
+        ArrayList<String[]> statistics = new ArrayList<>();
+        statistics.add(new String[]{getAvgTime(), getAvgDistance()});
+        statistics.add(getMaxUserValues());
+        statistics.add(getMinUserValues());
+        statistics.add(getMaxSumUserValues());
+        statistics.add(getMaxSumFromLastMonthUserValues());
+        return statistics;
+    }
+
+    public ArrayList<String[]> getVehicleStatistics(){
+        ArrayList<String[]> statistics = new ArrayList<>();
+        statistics.add(new String[]{getAvgTime(), getAvgDistance()});
+        statistics.add(new String[]{getCountOfVehicleWithDriver(), getCountOfVehicleWithoutDriver()});
+        return statistics;
+    }
+    
+
+    private String getAvgDistance(){
+        try{
+            ResultSet set = statement.executeQuery("select avg(distance) from orderlist where approved = 1;");
+            while (set.next()){
+                return set.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String getAvgTime(){
+        try{
+            ResultSet set = statement.executeQuery("select SEC_TO_TIME(AVG(TIME_TO_SEC(time))) from orderlist where approved = 1;");
+            while (set.next()){
+                return set.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMaxDriverValues(){
+        try{
+            ResultSet set = statement.executeQuery("select d.id, d.name,  max(o.time),max(o.distance) from orderlist o join driver d on d.id = o.driverid where o.approved = 1;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+
+                return  oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMinDriverValues(){
+        try{
+            ResultSet set = statement.executeQuery("select d.id, d.name, min(o.time),min(o.distance) from orderlist o join driver d on d.id = o.driverid where o.approved = 1;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMaxSumDriverValues(){
+        try{
+            ResultSet set = statement.executeQuery("select t.driverid, t.name, max(t.newtime), max(t.newDist)  from (select SEC_TO_TIME(sum(TIME_TO_SEC(o.time))) as newtime,  " +
+                    "(select sum(distance)) as newDist, o.driverid, d.name from orderlist o join driver d on d.id = o.driverid where approved = 1 group by driverid) t;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMaxSumFromLastMonthDriverValues(){
+        try{
+            ResultSet set = statement.executeQuery("select t.driverid, t.name, max(t.newtime), max(t.newDist)  from (select SEC_TO_TIME(sum(TIME_TO_SEC(o.time)))" +
+                    " as newtime,  (select sum(distance)) as newDist, o.driverid, d.name from orderlist o join driver d on d.id = o.driverid " +
+                    "where approved = 1 and dateandtime > DATE_SUB(now(), INTERVAL 1 MONTH) and dateandtime < now() group by driverid) t;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String[] getMaxUserValues(){
+        try{
+            ResultSet set = statement.executeQuery("select u.id, u.name, max(o.time),max(o.distance) from orderlist o join user u on u.id = o.userid where o.approved = 1;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+
+                return  oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMinUserValues(){
+        try{
+            ResultSet set = statement.executeQuery("select u.id, u.name,min(o.time),min(o.distance) from orderlist o join user u on u.id = o.userid where o.approved = 1;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMaxSumUserValues(){
+        try{
+            ResultSet set = statement.executeQuery("select  t.userid  , t.name,max(t.newtime), max(newDist) from (select SEC_TO_TIME(sum(TIME_TO_SEC(o.time))) as " +
+                    "newtime, (select sum(distance)) as newDist, o.userid, u.name from orderlist o join user u on u.id = o.userid where approved = 1 group by userid) t;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String[] getMaxSumFromLastMonthUserValues(){
+        try{
+            ResultSet set = statement.executeQuery("select  t.userid  , t.name,max(t.newtime), max(newDist) from (select SEC_TO_TIME(sum(TIME_TO_SEC(o.time))) as newtime, " +
+                    " (select sum(distance)) as newDist, o.userid, u.name from orderlist o join user u on u.id = o.userid " +
+                    "where approved = 1 and dateandtime > DATE_SUB(now(), INTERVAL 1 MONTH) and dateandtime < now() group by userid) t;");
+            while (set.next()){
+                String[] oneRow = new String[4];
+                for (int i = 0; i <4 ; i++) {
+                    oneRow[i] = set.getString(i+1);
+                }
+                return oneRow;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getCountOfVehicleWithoutDriver(){
+        try{
+            ResultSet set = statement.executeQuery("select count(id) from vehicle where driverid is null;");
+            while (set.next()){
+                return set.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getCountOfVehicleWithDriver(){
+        try{
+            ResultSet set = statement.executeQuery("select count(id) from vehicle where driverid is not null;");
+            while (set.next()){
+                return set.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

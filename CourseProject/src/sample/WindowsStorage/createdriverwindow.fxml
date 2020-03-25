@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
@@ -17,7 +18,7 @@
       <Text layoutX="183.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя" wrappingWidth="75.115234375" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="75.05078125" />
       <TextField fx:id="licenceIdField" layoutX="22.0" layoutY="190.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="191.0" />
       <Text layoutX="179.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер лицензии" wrappingWidth="135.115234375" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="195.05078125" />
-      <TextField fx:id="vehicleIdField" layoutX="22.0" layoutY="150.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="151.0" />
       <Text layoutX="183.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id транспорта" wrappingWidth="113.115234375" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="154.05078125" />
+      <ChoiceBox fx:id="vehicleBox" layoutX="22.0" layoutY="150.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

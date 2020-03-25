@@ -2,6 +2,8 @@ package sample.WindowController;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +17,9 @@ import java.util.concurrent.Executors;
 
 public class UserController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
+    ObservableList<OrderWrapper> orderQueueTableItems= null;
+    ObservableList<OrderWrapper> orderHistoryTableItems= null;
+    ObservableList<DriverWrapper> driverTableItems= null;
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
         Account.authorization("Admin", null, null);
@@ -22,17 +27,20 @@ public class UserController {
     }
     @FXML
     public void changeToDriverClick(ActionEvent actionEvent) {
-        String[] value = WindowsCreator.createAuthorizationWindow().split(Global.splitSymbol);
+        String winResult = WindowsCreator.createAuthorizationWindow();
+        if (winResult != null){
+        String[] value = winResult.split(Global.splitSymbol);
         if (Account.authorization("Driver", value[0], value[1])){
             ScreenController.getINSTANCE().activate("driver");
-        }
+        }}
     }
     @FXML
     public void changeToGuestClick(ActionEvent actionEvent) {
         Account.authorization("Guest", null, null);
         ScreenController.getINSTANCE().activate("guest");
     }
-
+    @FXML
+    TextField searchTextBox;
     @FXML
     Button createButton;
     @FXML
@@ -61,6 +69,7 @@ public class UserController {
                         orderQueueTable.getSelectionModel().clearSelection();
                         driverTable.getSelectionModel().clearSelection();
                         orderHistoryTable.getSelectionModel().clearSelection();
+                        searchTextBox.clear();
                     }
                 }
         );
@@ -74,8 +83,51 @@ public class UserController {
                 rejectButton.setDisable(false);
             }
         });
+        searchTextBox.textProperty().addListener(
+                (observable, oldValue, newValue) -> filterTextBox(newValue));
 
 
+    }
+    void filterTextBox(String value){
+        ObservableList filtred = FXCollections.observableArrayList();
+        switch (tabPane.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                if (driverTableItems == null) {
+                    driverTableItems = driverTable.getItems();
+                }
+                for (int i = 0; i < driverTableItems.size(); i++) {
+                    DriverWrapper item = driverTableItems.get(i);
+                    if (item.isMatching(value)) {
+                        filtred.add(item);
+                    }
+                }
+                driverTable.setItems(filtred);
+                break;
+            case 1:
+                if (orderQueueTableItems == null) {
+                    orderQueueTableItems = orderQueueTable.getItems();
+                }
+                for (int i = 0; i < orderQueueTableItems.size(); i++) {
+                    OrderWrapper item = orderQueueTableItems.get(i);
+                    if (item.isMatchingByDriver(value)) {
+                        filtred.add(item);
+                    }
+                }
+                orderQueueTable.setItems(filtred);
+                break;
+            case 2:
+                if (orderHistoryTableItems == null) {
+                    orderHistoryTableItems = orderHistoryTable.getItems();
+                }
+                for (int i = 0; i < orderHistoryTableItems.size(); i++) {
+                    OrderWrapper item = orderHistoryTableItems.get(i);
+                    if (item.isMatchingByDriver(value)) {
+                        filtred.add(item);
+                    }
+                }
+                orderHistoryTable.setItems(filtred);
+                break;
+        }
     }
 
     void initializeDriverTable(){
@@ -140,12 +192,15 @@ public class UserController {
         switch (index){
             case 0:
                 exec.submit(new UIUpdateThread(driverTable ,new ClientThread(1301, "Driver"), "DriverWrapper"));
+                driverTableItems= null;
                 break;
             case 1:
                 exec.submit(new UIUpdateThread(orderQueueTable , new ClientThread(1321, Integer.toString(Account.id)), "OrderWrapper"));
+                orderQueueTableItems= null;
                 break;
             case 2:
                 exec.submit(new UIUpdateThread(orderHistoryTable , new ClientThread(1322, Integer.toString(Account.id)), "OrderWrapper"));
+                orderHistoryTableItems= null;
         }
     }
 
