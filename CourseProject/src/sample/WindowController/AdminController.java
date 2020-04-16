@@ -13,20 +13,27 @@ import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
 import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
+import sample.Methods.AdminSQLMethods;
+import sample.Methods.SQLMethods;
+import sample.Thread.*;
+import sample.Thread.Report.DriverReportCreateThread;
+import sample.Thread.Report.UserReportCreateThread;
+import sample.Thread.Report.VehicleReportCreateThread;
 
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AdminController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
-    ObservableList<VehicleWrapper> vehicleTableItems = null;
-    ObservableList<DriverWrapper> driverTableItems= null;
-    ObservableList<UserWrapper> userTableItems= null;
-    ObservableList<OrderWrapper> orderTableItems= null;
+    public ObservableList<VehicleWrapper> vehicleTableItems = null;
+    public ObservableList<DriverWrapper> driverTableItems= null;
+    public ObservableList<UserWrapper> userTableItems= null;
+    public ObservableList<OrderWrapper> orderTableItems= null;
     @FXML
     TextField searchTextBox;
+    @FXML
+    Button addButton;
     @FXML
     Button editButton;
     @FXML
@@ -39,13 +46,13 @@ public class AdminController {
     TabPane tabPane;
 
     @FXML
-    TableView<VehicleWrapper> vehicleTable;
+    public TableView<VehicleWrapper> vehicleTable;
     @FXML
-    TableView<DriverWrapper> driverTable;
+    public TableView<DriverWrapper> driverTable;
     @FXML
-    TableView<UserWrapper> userTable;
+    public TableView<UserWrapper> userTable;
     @FXML
-    TableView<OrderWrapper> orderTable;
+    public TableView<OrderWrapper> orderTable;
     @FXML
     Tab vehicleTab;
     @FXML
@@ -98,14 +105,20 @@ public class AdminController {
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        editButton.setDisable(true);
-                        deleteButton.setDisable(true);
-                        infoButton.setDisable(true);
+                        unselectEverything();
                         userTable.getSelectionModel().clearSelection();
                         driverTable.getSelectionModel().clearSelection();
                         vehicleTable.getSelectionModel().clearSelection();
                         orderTable.getSelectionModel().clearSelection();
                         searchTextBox.clear();
+                        if (tabPane.getSelectionModel().getSelectedIndex()==3){
+                            reportButton.setDisable(true);
+                            addButton.setDisable(true);
+                        }
+                        else{
+                            reportButton.setDisable(false);
+                            addButton.setDisable(false);
+                        }
                     }
                 }
         );
@@ -115,6 +128,15 @@ public class AdminController {
         searchTextBox.textProperty().addListener(
                 (observable, oldValue, newValue) -> filterTextBox(newValue));
 
+    }
+    void unselectEverything(){
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
+        infoButton.setDisable(true);
+        userTable.getSelectionModel().clearSelection();
+        driverTable.getSelectionModel().clearSelection();
+        vehicleTable.getSelectionModel().clearSelection();
+        orderTable.getSelectionModel().clearSelection();
     }
 
     void filterTextBox(String value){
@@ -255,40 +277,17 @@ public class AdminController {
         orderTable.getColumns().add(c9);
         orderTable.getColumns().add(c10);
     }
-    public void updateTable(int index) {
-        switch (index) {
-            case 0:
-                exec.submit(new UIUpdateThread(vehicleTable, new ClientThread(1101, "Vehicle"), "VehicleWrapper"));
-                vehicleTableItems = null;
-                break;
-            case 1:
-                exec.submit(new UIUpdateThread(userTable, new ClientThread(1101, "User"), "UserWrapper"));
-                userTableItems = null;
-                break;
-            case 2:
-                exec.submit(new UIUpdateThread(driverTable, new ClientThread(1101, "Driver"), "DriverWrapper"));
-                driverTableItems = null;
-                break;
-            case 3:
-                exec.submit(new UIUpdateThread(orderTable, new ClientThread(1101, "OrderList"), "OrderWrapper"));
-                orderTableItems = null;
-                break;
-        }
-    }
 
 
 
-    public void updateButtonClick(ActionEvent actionEvent) {
-        searchTextBox.clear();
-       new UIPreloadThread(this).start();
-    }
+
 
     public void infoButtonClick(ActionEvent actionEvent) {
         ArrayList<String> value ;
         ClientThread thread;
         switch (tabPane.getSelectionModel().getSelectedIndex()){
             case 1:
-                thread = new ClientThread(1123, "User"+Global.splitSymbol+userTable.getSelectionModel().getSelectedItem().getId());
+                thread = new ClientThread(()-> AdminSQLMethods.getAvgTimeAndDistanceOfCertainId("User",userTable.getSelectionModel().getSelectedItem().getId()));
                 thread.start();
                 try {
                     thread.join();
@@ -307,7 +306,7 @@ public class AdminController {
                 }
                 break;
             case 2:
-                thread = new ClientThread(1123, "Driver"+Global.splitSymbol+driverTable.getSelectionModel().getSelectedItem().getId());
+                thread = new ClientThread(()-> AdminSQLMethods.getAvgTimeAndDistanceOfCertainId("Driver",driverTable.getSelectionModel().getSelectedItem().getId()));
                 thread.start();
                 try {
                     thread.join();
@@ -330,20 +329,19 @@ public class AdminController {
     }
 
     public void addButtonClick(ActionEvent actionEvent) {
-        String value;
+        String[] value;
         switch (tabPane.getSelectionModel().getSelectedIndex()){
             case 0:
                 value = WindowsCreator.createVehicleWindow();
                 if (value != null){
-                    new ClientThread(1102, "Vehicle"+Global.splitSymbol+value).start();
-                    updateTable(0);
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.addVehicle(value[0], value[1])), null).start();
                 }
                 break;
             case 1:
                 value = WindowsCreator.createUserCreationWindow();
                 if (value != null){
-                    new ClientThread(1102, "User"+Global.splitSymbol+value).start();
-                    updateTable(1);}
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.addUser(value[0], value[1], value[2])), null).start();
+                  }
                 break;
             case 2:
                 if (vehicleTableItems==null){
@@ -352,29 +350,30 @@ public class AdminController {
                 value = WindowsCreator.createDriverCreationWindow(vehicleTableItems);
 
                 if (value != null){
-                    new ClientThread(1102, "Driver"+Global.splitSymbol+value).start();
-                    updateTable(2);}
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.addDriver(value[0], value[1], value[2], value[3], value[4])), null).start();
+                }
                 break;
         }
+        unselectEverything();
     }
 
     public void editButtonClick(ActionEvent actionEvent) {
-        String value;
+        String[] value;
         switch (tabPane.getSelectionModel().getSelectedIndex()){
             case 0:
                 VehicleWrapper vehicleItem = vehicleTable.getSelectionModel().getSelectedItem();
                 value = WindowsCreator.createVehicleEditWindow(vehicleItem);
                 if (value != null){
-                    new ClientThread(1103, "Vehicle"+Global.splitSymbol+vehicleItem.getId()+Global.splitSymbol+value).start();
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.editVehicle(vehicleItem.getId(), value[0], value[1])), null).start();
                 }
-                updateTable(0);
+
                 break;
             case 1:
                 UserWrapper userItem = userTable.getSelectionModel().getSelectedItem();
                 value = WindowsCreator.createUserEditWindow(userItem);
                 if (value != null){
-                new ClientThread(1103, "User"+Global.splitSymbol+userItem.getId()+Global.splitSymbol+value).start();
-                updateTable(1);}
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.editUser(userItem.getId(), value[0], value[1], value[2])), null).start();
+                }
                 break;
             case 2:
                 if (vehicleTableItems==null){
@@ -383,29 +382,35 @@ public class AdminController {
                 DriverWrapper driverItem = driverTable.getSelectionModel().getSelectedItem();
                 value = WindowsCreator.createDriverEditWindow(driverTable.getSelectionModel().getSelectedItem(),vehicleTableItems);
                 if (value != null){
-                new ClientThread(1103, "Driver"+Global.splitSymbol+driverItem.getId()+Global.splitSymbol+value).start();
-                updateTable(2);}
+                    new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.editDriver(driverItem.getId(), value[0], value[1], value[2], value[3], value[4])),null).start();
+                }
                 break;
         }
+        unselectEverything();
     }
 
     public void deleteButtonClick(ActionEvent actionEvent) {
+
         switch (tabPane.getSelectionModel().getSelectedIndex()){
             case 0:
-                new ClientThread(1104, "Vehicle"+Global.splitSymbol+vehicleTable.getSelectionModel().selectedItemProperty().get().getId()).start();
-                updateTable(0);
+                new ValuesChangeThread(new ClientThread(
+                        ()->AdminSQLMethods.deleteItemById("Vehicle",vehicleTable.getSelectionModel().selectedItemProperty().get().getId())),
+                        ()->unselectEverything()) .start();
                 break;
             case 1:
-                new ClientThread(1104, "User"+Global.splitSymbol+userTable.getSelectionModel().selectedItemProperty().get().getId()).start();
-                updateTable(1);
+                new ValuesChangeThread(new ClientThread(
+                        ()->AdminSQLMethods.deleteItemById( "User",userTable.getSelectionModel().selectedItemProperty().get().getId())),
+                        ()->unselectEverything()) .start();
                 break;
             case 2:
-                new ClientThread(1104, "Driver"+Global.splitSymbol+driverTable.getSelectionModel().selectedItemProperty().get().getId()).start();
-                updateTable(2);
+                new ValuesChangeThread(new ClientThread(
+                        ()->AdminSQLMethods.deleteItemById("Driver",driverTable.getSelectionModel().selectedItemProperty().get().getId())),
+                        ()->unselectEverything()) .start();
                 break;
             case 3:
-                new ClientThread(1104, "OrderList"+Global.splitSymbol+orderTable.getSelectionModel().selectedItemProperty().get().getOrderid()).start();
-                updateTable(3);
+                new ValuesChangeThread(new ClientThread(
+                        ()->AdminSQLMethods.deleteItemById("OrderList",orderTable.getSelectionModel().selectedItemProperty().get().getOrderid())),
+                        ()->unselectEverything()) .start();
                 break;
         }
 
@@ -435,5 +440,13 @@ public class AdminController {
                 new DriverReportCreateThread().start();
                 break;
         }
+    }
+
+    public void infoClick(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Информация");
+        alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
+        alert.showAndWait();
     }
 }

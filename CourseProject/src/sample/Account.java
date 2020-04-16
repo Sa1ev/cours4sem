@@ -1,6 +1,7 @@
 package sample;
 
-import sample.WindowController.AuthorizationController;
+import sample.Methods.AdminSQLMethods;
+import sample.Thread.ClientThread;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class Account {
             return true;
         }
         else if (role == "Driver"){
-            ClientThread thread = new ClientThread(1106, "Driver"+Global.splitSymbol+number+Global.splitSymbol+password);
+            ClientThread thread = new ClientThread(()-> AdminSQLMethods.getLineByPhoneAndPassword("Driver",new Long(number),password));
             thread.start();
             try {
                 thread.join();
@@ -48,7 +49,7 @@ public class Account {
             return false;
         }
         else if (role == "User"){
-            ClientThread thread = new ClientThread(1106, "User"+Global.splitSymbol+number+Global.splitSymbol+password);
+            ClientThread thread = new ClientThread(()->AdminSQLMethods.getLineByPhoneAndPassword("User",new Long(number),password));
             thread.start();
             try {
                 thread.join();

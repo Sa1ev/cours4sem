@@ -9,11 +9,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private static String url = "jdbc:mysql://localhost:3306/coursedb?useUnicode=true&serverTimezone=UTC";
-    private static String user = "root";
-    private static String password = "qwerty";
+
+
     static ExecutorService executeIt = Executors.newFixedThreadPool(2);
             public static void main(String[] args) {
+                System.out.println(System.getProperty("user.dir"));
                 try (ServerSocket server = new ServerSocket(3345);
                      BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
                     while (!server.isClosed()) {

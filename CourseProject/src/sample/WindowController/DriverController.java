@@ -9,18 +9,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
-import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
-import sample.DataWrapper.UserWrapper;
-import sample.DataWrapper.VehicleWrapper;
+import sample.Methods.DriverSQLMethods;
+import sample.Thread.ClientThread;
+import sample.Thread.UILoadThread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DriverController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
-    ObservableList<OrderWrapper> orderQueueTableItems= null;
-    ObservableList<OrderWrapper> orderHistoryTableItems= null;
+    public ObservableList<OrderWrapper> orderQueueTableItems= null;
+    public ObservableList<OrderWrapper> orderHistoryTableItems= null;
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
         Account.authorization("Admin", null, null);
@@ -50,9 +50,9 @@ public class DriverController {
     @FXML
     TabPane tabPane;
     @FXML
-    TableView<OrderWrapper> orderQueueTable;
+    public TableView<OrderWrapper> orderQueueTable;
     @FXML
-    TableView<OrderWrapper> orderHistoryTable;
+    public TableView<OrderWrapper> orderHistoryTable;
 
     @FXML
     public void initialize() {
@@ -64,8 +64,7 @@ public class DriverController {
                 new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        approveButton.setDisable(true);
-                        rejectButton.setDisable(true);
+                        unselectButtons();
                         orderQueueTable.getSelectionModel().clearSelection();
                         orderHistoryTable.getSelectionModel().clearSelection();
                         searchTextBox.clear();
@@ -81,6 +80,10 @@ public class DriverController {
         });
         searchTextBox.textProperty().addListener(
                 (observable, oldValue, newValue) -> filterTextBox(newValue));
+    }
+    void unselectButtons(){
+        approveButton.setDisable(true);
+        rejectButton.setDisable(true);
     }
 
     void filterTextBox(String value){
@@ -156,35 +159,27 @@ public class DriverController {
         orderHistoryTable.getColumns().add(c8);
     }
 
-    public void updateTable(int index){
-        switch (index){
-            case 0:
-                exec.submit(new UIUpdateThread(orderQueueTable , new ClientThread(1221, Integer.toString(Account.id)), "OrderWrapper"));
-                orderQueueTableItems= null;
-                break;
-            case 1:
-                exec.submit(new UIUpdateThread(orderHistoryTable , new ClientThread(1222, Integer.toString(Account.id)), "OrderWrapper"));
-                orderHistoryTableItems= null;
-        }
-    }
+
 
     public void approveButtonClick(ActionEvent actionEvent) {
-        new ClientThread(1224, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()+Global.splitSymbol+"1").start();
-        updateTable(0);
-        updateTable(1);
-        approveButton.setDisable(true);
-        rejectButton.setDisable(true);}
+        new ClientThread(()->DriverSQLMethods.changeOrder(orderQueueTable.getSelectionModel().getSelectedItem().getOrderid(), "1")).start();
+        unselectButtons();
+    }
 
     public void rejectButtonClick(ActionEvent actionEvent) {
-        new ClientThread(1224, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()+Global.splitSymbol+"0").start();
-        updateTable(0);
-        updateTable(1);
-        approveButton.setDisable(true);
-        rejectButton.setDisable(true);}
+        new ClientThread(()->DriverSQLMethods.changeOrder(orderQueueTable.getSelectionModel().getSelectedItem().getOrderid(), "0")).start();
+            unselectButtons();
+    }
 
 
 
-    public void updateButtonClick(ActionEvent actionEvent) {
-        new UIPreloadThread(this).start();
+
+
+    public void infoClick(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Информация");
+        alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
+        alert.showAndWait();
     }
 }

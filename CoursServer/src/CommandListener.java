@@ -9,9 +9,6 @@ public class CommandListener implements Runnable {
 
     private static Socket clientDialog;
 
-    private static AdminSQLMethods adminSQLMethods;
-    private static DriverSQLMethods driverSQLMethods;
-    private static UserSQLMethods userSQLMethods;
 
     public CommandListener(Socket client) {
         CommandListener.clientDialog = client;

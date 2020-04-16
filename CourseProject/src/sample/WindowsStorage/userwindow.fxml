@@ -65,15 +65,13 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Помощь">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Настройки" />
-                  <MenuItem mnemonicParsing="false" text="Информация" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoClick" text="Информация" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <Button fx:id="createButton" layoutX="1050.0" layoutY="100.0" mnemonicParsing="false" onAction="#createButtonClick" prefHeight="35.0" prefWidth="115.0" text="Заказать" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="118.0" />
-      <Button fx:id="rejectButton" layoutX="1050.0" layoutY="166.0" mnemonicParsing="false" onAction="#rejectButtonClick" prefHeight="35.0" prefWidth="115.0" text="Отменить заказ" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0" />
-      <Button fx:id="updateButton" layoutX="1050.0" layoutY="49.0" mnemonicParsing="false" onAction="#updateButtonClick" prefHeight="34.0" prefWidth="115.0" text="Обновить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
+      <Button fx:id="createButton" layoutX="1051.0" layoutY="76.0" mnemonicParsing="false" onAction="#createButtonClick" prefHeight="35.0" prefWidth="115.0" text="Заказать" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="76.0" />
+      <Button fx:id="rejectButton" layoutX="1051.0" layoutY="118.0" mnemonicParsing="false" onAction="#rejectButtonClick" prefHeight="35.0" prefWidth="115.0" text="Отменить заказ" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="118.0" />
       <TextField fx:id="searchTextBox" layoutX="14.0" layoutY="42.0" prefHeight="13.0" prefWidth="379.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="42.0" />
    </children>
 </AnchorPane>

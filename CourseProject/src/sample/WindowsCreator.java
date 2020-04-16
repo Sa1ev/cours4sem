@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
-import sample.WindowController.*;
+import sample.WindowController.PopupWindows.*;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class WindowsCreator {
         return null;
     }
 
-    public static String createUserCreationWindow(){
+    public static String[] createUserCreationWindow(){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createuserwindow.fxml"));
@@ -61,7 +61,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createDriverCreationWindow(ObservableList<VehicleWrapper> list){
+    public static String[] createDriverCreationWindow(ObservableList<VehicleWrapper> list){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createdriverwindow.fxml"));
@@ -86,7 +86,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createVehicleWindow(){
+    public static String[] createVehicleWindow(){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createvehiclewindow.fxml"));
@@ -109,7 +109,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createOrderWindow(){
+    public static String[] createOrderWindow(){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createorderwindow.fxml"));
@@ -133,7 +133,7 @@ public class WindowsCreator {
         return null;
     }
 
-    public static String createUserEditWindow(UserWrapper item){
+    public static String[] createUserEditWindow(UserWrapper item){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createuserwindow.fxml"));
@@ -157,7 +157,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createDriverEditWindow(DriverWrapper item, ObservableList<VehicleWrapper> list){
+    public static String[] createDriverEditWindow(DriverWrapper item, ObservableList<VehicleWrapper> list){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createdriverwindow.fxml"));
@@ -183,7 +183,7 @@ public class WindowsCreator {
         }
         return null;
     }
-    public static String createVehicleEditWindow(VehicleWrapper item){
+    public static String[] createVehicleEditWindow(VehicleWrapper item){
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/createvehiclewindow.fxml"));

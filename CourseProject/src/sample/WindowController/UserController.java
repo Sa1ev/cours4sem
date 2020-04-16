@@ -11,15 +11,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
 import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
+import sample.Methods.UserSQLMethods;
+import sample.Thread.ClientThread;
+import sample.Thread.UILoadThread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class UserController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
-    ObservableList<OrderWrapper> orderQueueTableItems= null;
-    ObservableList<OrderWrapper> orderHistoryTableItems= null;
-    ObservableList<DriverWrapper> driverTableItems= null;
+    public ObservableList<OrderWrapper> orderQueueTableItems= null;
+    public ObservableList<OrderWrapper> orderHistoryTableItems= null;
+    public ObservableList<DriverWrapper> driverTableItems= null;
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
         Account.authorization("Admin", null, null);
@@ -46,11 +49,11 @@ public class UserController {
     @FXML
     Button rejectButton;
     @FXML
-    TableView<DriverWrapper> driverTable;
+    public TableView<DriverWrapper> driverTable;
     @FXML
-    TableView<OrderWrapper> orderQueueTable;
+    public TableView<OrderWrapper> orderQueueTable;
     @FXML
-    TableView<OrderWrapper> orderHistoryTable;
+    public TableView<OrderWrapper> orderHistoryTable;
     @FXML
     TabPane tabPane;
     @FXML
@@ -88,6 +91,12 @@ public class UserController {
 
 
     }
+
+    void unselectButtons(){
+        createButton.setDisable(true);
+        rejectButton.setDisable(true);
+    }
+
     void filterTextBox(String value){
         ObservableList filtred = FXCollections.observableArrayList();
         switch (tabPane.getSelectionModel().getSelectedIndex()) {
@@ -188,35 +197,24 @@ public class UserController {
         orderHistoryTable.getColumns().add(c8);
     }
 
-    public void updateTable(int index){
-        switch (index){
-            case 0:
-                exec.submit(new UIUpdateThread(driverTable ,new ClientThread(1301, "Driver"), "DriverWrapper"));
-                driverTableItems= null;
-                break;
-            case 1:
-                exec.submit(new UIUpdateThread(orderQueueTable , new ClientThread(1321, Integer.toString(Account.id)), "OrderWrapper"));
-                orderQueueTableItems= null;
-                break;
-            case 2:
-                exec.submit(new UIUpdateThread(orderHistoryTable , new ClientThread(1322, Integer.toString(Account.id)), "OrderWrapper"));
-                orderHistoryTableItems= null;
-        }
-    }
 
     public void createButtonClick(ActionEvent actionEvent) {
-        String value = WindowsCreator.createOrderWindow();
+        String[] value = WindowsCreator.createOrderWindow();
         if (value != null){
-            new ClientThread(1302, driverTable.getSelectionModel().getSelectedItem().getId()+Global.splitSymbol+
-                    Account.id+Global.splitSymbol+
-                    value+Global.splitSymbol+getTime(11, value)).start();
-            updateTable(0);
+            new ClientThread(()->UserSQLMethods.addOrder(
+                    driverTable.getSelectionModel().getSelectedItem().getId(),
+                    Integer.toString(Account.id),
+                    value[0],
+                    value[1],
+                    getTime(12, value[2]),
+                    value[2])).start();
+
         }
     }
 
 
     String getTime(int speedMS, String orderValues){
-        int distance = new Integer(orderValues.split(Global.splitSymbol)[2]);
+        int distance = new Integer(orderValues)/speedMS;
         int hours = distance/3600;
         distance-=hours*3600;
         int minutes  = distance/60;
@@ -226,11 +224,18 @@ public class UserController {
     }
 
     public void rejectButtonClick(ActionEvent actionEvent) {
-        new ClientThread(1304, orderQueueTable.getSelectionModel().getSelectedItem().getOrderid()).start();
-        updateTable(1);
+        unselectButtons();
+        new ClientThread(()->UserSQLMethods.deleteOrder(orderQueueTable.getSelectionModel().getSelectedItem().getOrderid())).start();
+
     }
 
-    public void updateButtonClick(ActionEvent actionEvent) {
-        new UIPreloadThread(this).start();
+
+
+    public void infoClick(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Информация");
+        alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
+        alert.showAndWait();
     }
 }

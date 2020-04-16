@@ -80,18 +80,16 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Помощь">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Настройки" />
-                  <MenuItem mnemonicParsing="false" text="Информация" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoClick" text="Информация" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <Button fx:id="updateButton" layoutX="1050.0" layoutY="42.0" mnemonicParsing="false" onAction="#updateButtonClick" prefHeight="34.0" prefWidth="115.0" text="Обновить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
-      <Button fx:id="infoButton" layoutX="1050.0" layoutY="86.0" mnemonicParsing="false" onAction="#infoButtonClick" prefHeight="34.0" prefWidth="115.0" text="Информация" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="244.0" />
-      <Button fx:id="addButton" layoutX="1050.0" layoutY="129.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="34.0" prefWidth="115.0" text="Добавить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="118.0" />
-      <Button fx:id="editButton" layoutX="1050.0" layoutY="172.0" mnemonicParsing="false" onAction="#editButtonClick" prefHeight="34.0" prefWidth="115.0" text="Изменить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0" />
-      <Button fx:id="deleteButton" layoutX="1050.0" layoutY="169.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="34.0" prefWidth="115.0" text="Удалить" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="202.0" />
+      <Button fx:id="infoButton" layoutX="1051.0" layoutY="202.0" mnemonicParsing="false" onAction="#infoButtonClick" prefHeight="34.0" prefWidth="115.0" text="Информация" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="202.0" />
+      <Button fx:id="addButton" layoutX="1051.0" layoutY="76.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="34.0" prefWidth="115.0" text="Добавить" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="76.0" />
+      <Button fx:id="editButton" layoutX="1051.0" layoutY="118.0" mnemonicParsing="false" onAction="#editButtonClick" prefHeight="34.0" prefWidth="115.0" text="Изменить" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="118.0" />
+      <Button fx:id="deleteButton" layoutX="1051.0" layoutY="160.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="34.0" prefWidth="115.0" text="Удалить" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="160.0" />
       <TextField fx:id="searchTextBox" layoutX="14.0" layoutY="42.0" prefHeight="13.0" prefWidth="379.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="42.0" />
-      <Button fx:id="reportButton" layoutX="1050.0" layoutY="286.0" mnemonicParsing="false" onAction="#reportButtonClick" prefHeight="34.0" prefWidth="115.0" text="Отчет" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="286.0" />
+      <Button fx:id="reportButton" layoutX="1051.0" layoutY="244.0" mnemonicParsing="false" onAction="#reportButtonClick" prefHeight="34.0" prefWidth="115.0" text="Отчет" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="244.0" />
    </children>
 </AnchorPane>

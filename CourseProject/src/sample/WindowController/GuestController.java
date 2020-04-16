@@ -4,21 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.*;
 import sample.DataWrapper.DriverWrapper;
-import sample.DataWrapper.OrderWrapper;
+import sample.Methods.AdminSQLMethods;
+import sample.Thread.ClientThread;
+import sample.Thread.UILoadThread;
+import sample.Thread.ValuesChangeThread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GuestController {
     ExecutorService exec = Executors.newFixedThreadPool(1);
-    ObservableList<DriverWrapper> driverTableItems= null;
+    public ObservableList<DriverWrapper> driverTableItems= null;
     @FXML
     public void changeToAdminClick(ActionEvent actionEvent) {
         Account.authorization("Admin", null, null);
@@ -47,13 +47,13 @@ public class GuestController {
     @FXML
     TextField searchTextBox;
     @FXML
-    TableView<DriverWrapper> driverTable;
+    public TableView<DriverWrapper> driverTable;
     @FXML
     TabPane tabPane;
     @FXML
     public void initialize() {
         initializeDriverTable();
-        new UIPreloadThread( this).start();
+        new UILoadThread( this).start();
         searchTextBox.textProperty().addListener(
                 (observable, oldValue, newValue) -> filterTextBox(newValue));
     }
@@ -91,17 +91,22 @@ public class GuestController {
         driverTable.getColumns().add(c5);
         driverTable.getColumns().add(c6);
     }
-    public void updateTable(int index){
-        switch (index){
-            case 0:
-                exec.submit(new UIUpdateThread(driverTable ,new ClientThread(1301, "Driver"), "DriverWrapper"));
-                driverTableItems= null;
-                break;
 
+
+
+
+    public void regUser(ActionEvent actionEvent) {
+        String[] value = WindowsCreator.createUserCreationWindow();
+        if (value != null){
+            new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.getLineByPhoneAndPassword("User",new Long(value[0]), value[1])), null).start();
         }
     }
 
-    public void updateButtonClick(ActionEvent actionEvent) {
-        new UIPreloadThread(this).start();
+    public void infoClick(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Информация");
+        alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
+        alert.showAndWait();
     }
 }

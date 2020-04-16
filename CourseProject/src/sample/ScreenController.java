@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import sample.Thread.UILoadThread;
 import sample.WindowController.*;
 
 import java.util.HashMap;
@@ -40,16 +41,16 @@ public class ScreenController {
         main.setRoot( screenMap.get(name));
         switch (name){
             case("admin"):
-                new UIPreloadThread(loaderMap.get("admin").<AdminController>getController()).start();
+                new UILoadThread(loaderMap.get("admin").<AdminController>getController()).start();
                 break;
             case("driver"):
-                new UIPreloadThread(loaderMap.get("driver").<DriverController>getController()).start();
+                new UILoadThread(loaderMap.get("driver").<DriverController>getController()).start();
                 break;
             case("user"):
-                new UIPreloadThread(loaderMap.get("user").<UserController>getController()).start();
+                new UILoadThread(loaderMap.get("user").<UserController>getController()).start();
                 break;
             case("guest"):
-                new UIPreloadThread( loaderMap.get("guest").<GuestController>getController());
+                new UILoadThread( loaderMap.get("guest").<GuestController>getController());
                 break;
 
         }
