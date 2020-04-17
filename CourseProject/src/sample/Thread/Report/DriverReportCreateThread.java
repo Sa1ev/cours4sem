@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import sample.Methods.AdminSQLMethods;
 import sample.Thread.ClientThread;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,10 +13,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DriverReportCreateThread extends Thread {
+    String path =  System.getProperty("user.dir")+"\\reports\\drivers\\";
     @Override
     public void run(){
         ClientThread thread = new ClientThread(()-> AdminSQLMethods.getDriverStatistics());
         thread.start();
+        File file = new File(path);
+        file.mkdirs();
         Document document = new Document();
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date date = new Date();
@@ -25,7 +29,7 @@ public class DriverReportCreateThread extends Thread {
             ArrayList<String[]> result = (ArrayList) thread.result;
 
 
-            PdfWriter.getInstance(document, new FileOutputStream("Driver Report "+dateFormat.format(date)+".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(path+"Driver Report "+dateFormat.format(date)+".pdf"));
             document.open();
 
             Paragraph p = new Paragraph("Driver report", mainFont);
@@ -34,6 +38,7 @@ public class DriverReportCreateThread extends Thread {
 
             Font f = new Font();
             f.setSize(14);
+            document.add(new Paragraph(" ", f));
             document.add(new Paragraph(String.format("Average time spent by all drivers: %s.",result.get(0)[0], f)));
             document.add(new Paragraph(String.format("Average distance traveled by all drivers: %s meters.", result.get(0)[1]), f));
             document.add(new Paragraph(String.format("The longest ride: Id %s Name: %s Duration %ss. Distance %sm.",

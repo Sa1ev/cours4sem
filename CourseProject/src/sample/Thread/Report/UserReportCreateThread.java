@@ -2,9 +2,11 @@ package sample.Thread.Report;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import javafx.application.Application;
 import sample.Methods.AdminSQLMethods;
 import sample.Thread.ClientThread;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
@@ -13,10 +15,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class UserReportCreateThread extends Thread {
+    String path =  System.getProperty("user.dir")+"\\reports\\users\\";
     @Override
     public void run(){
         ClientThread thread = new ClientThread(()-> AdminSQLMethods.getUserStatistics());
         thread.start();
+        File file = new File(path);
+        file.mkdirs();
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date date = new Date();
         Document document = new Document();
@@ -25,7 +30,7 @@ public class UserReportCreateThread extends Thread {
             thread.join();
             ArrayList<String[]> result = (ArrayList) thread.result;
 
-            PdfWriter.getInstance(document, new FileOutputStream("Users Report "+dateFormat.format(date)+".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(path+"Users Report "+dateFormat.format(date)+".pdf"));
             document.open();
 
             Paragraph p = new Paragraph("User report", mainFont);
@@ -34,6 +39,7 @@ public class UserReportCreateThread extends Thread {
 
             Font f = new Font();
             f.setSize(14);
+            document.add(new Paragraph(" ", f));
             document.add(new Paragraph(String.format("Average time spent by all users: %s.",result.get(0)[0]), f));
             document.add(new Paragraph(String.format("Average distance traveled by all users: %s meters.", result.get(0)[1]), f));
             document.add(new Paragraph(String.format("The longest ride: Id %s Name: %s Duration %ss. Distance %sm.",

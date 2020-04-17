@@ -3,6 +3,7 @@ package sample.DataWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.Util;
 
 import java.util.ArrayList;
 
@@ -143,7 +144,7 @@ public class OrderWrapper {
     }
 
     public SimpleStringProperty approvedProperty() {
-        return approved;
+        return new SimpleStringProperty(Util.intToYesOrNo(approved.get()));
     }
 
     public void setApproved(String approved) {
@@ -155,7 +156,7 @@ public class OrderWrapper {
     }
 
     public SimpleStringProperty inqueueProperty() {
-        return inqueue;
+        return new SimpleStringProperty(Util.intToYesOrNo(inqueue.get()));
     }
 
     public void setInqueue(String inqueue) {
