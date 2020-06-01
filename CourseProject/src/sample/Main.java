@@ -21,10 +21,9 @@ public class Main extends Application {
         Pane driver = driverLoader.load();
         Pane user = userLoader.load();
         Pane guest = guestLoader.load();
-
+        //setUserAgentStylesheet(STYLESHEET_CASPIAN);
 
         Scene scene = new Scene(guest);
-
         ScreenController screenController = ScreenController.getINSTANCE();
         screenController.setScene(scene);
         screenController.addLoader("admin", adminLoader);
@@ -38,7 +37,7 @@ public class Main extends Application {
         screenController.addScreen("guest", guest);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Course");
+        primaryStage.setTitle("Таксопарк");
         primaryStage.setWidth(1000);
         primaryStage.setHeight(700);
         primaryStage.setMinWidth(800);

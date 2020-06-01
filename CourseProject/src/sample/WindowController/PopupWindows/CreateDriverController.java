@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.VehicleWrapper;
-import sample.Global;
 
 import java.util.regex.Pattern;
 

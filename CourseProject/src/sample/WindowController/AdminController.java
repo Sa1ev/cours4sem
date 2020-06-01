@@ -1,5 +1,6 @@
 package sample.WindowController;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,11 +15,12 @@ import sample.DataWrapper.OrderWrapper;
 import sample.DataWrapper.UserWrapper;
 import sample.DataWrapper.VehicleWrapper;
 import sample.Methods.AdminSQLMethods;
-import sample.Methods.SQLMethods;
 import sample.Thread.*;
 import sample.Thread.Report.DriverReportCreateThread;
 import sample.Thread.Report.UserReportCreateThread;
 import sample.Thread.Report.VehicleReportCreateThread;
+import sample.Utils.Global;
+import sample.Utils.Test;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -115,6 +117,7 @@ public class AdminController {
                             reportButton.setDisable(true);
                             addButton.setDisable(true);
                         }
+
                         else{
                             reportButton.setDisable(false);
                             addButton.setDisable(false);
@@ -129,6 +132,7 @@ public class AdminController {
                 (observable, oldValue, newValue) -> filterTextBox(newValue));
 
     }
+
     void unselectEverything(){
         editButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -248,24 +252,26 @@ public class AdminController {
     void initializeOrderTable(){
         TableColumn<OrderWrapper, String> c1 = new TableColumn("Order Id");
         TableColumn<OrderWrapper, String> c2 = new TableColumn("Driver Id");
-        TableColumn<OrderWrapper, String> c3 = new TableColumn("User Id");
-        TableColumn<OrderWrapper, String> c4 = new TableColumn("Start Point");
-        TableColumn<OrderWrapper, String> c5 = new TableColumn("Finish Point");
-        TableColumn<OrderWrapper, String> c6 = new TableColumn("Distance");
-        TableColumn<OrderWrapper, String> c7 = new TableColumn("Time");
-        TableColumn<OrderWrapper, String> c8 = new TableColumn("Approved");
-        TableColumn<OrderWrapper, String> c9 = new TableColumn("In queue");
-        TableColumn<OrderWrapper, String> c10 = new TableColumn("Date");
+        TableColumn<OrderWrapper, String> c3 = new TableColumn("Vehicle Id");
+        TableColumn<OrderWrapper, String> c4 = new TableColumn("User Id");
+        TableColumn<OrderWrapper, String> c5 = new TableColumn("Start Point");
+        TableColumn<OrderWrapper, String> c6 = new TableColumn("Finish Point");
+        TableColumn<OrderWrapper, String> c7 = new TableColumn("Distance");
+        TableColumn<OrderWrapper, String> c8 = new TableColumn("Time");
+        TableColumn<OrderWrapper, String> c9 = new TableColumn("Approved");
+        TableColumn<OrderWrapper, String> c10 = new TableColumn("In queue");
+        TableColumn<OrderWrapper, String> c11 = new TableColumn("Date");
         c1.setCellValueFactory(new PropertyValueFactory("orderid"));
         c2.setCellValueFactory(new PropertyValueFactory("driverid"));
-        c3.setCellValueFactory(new PropertyValueFactory("userid"));
-        c4.setCellValueFactory(new PropertyValueFactory("startPoint"));
-        c5.setCellValueFactory(new PropertyValueFactory("finishPoint"));
-        c6.setCellValueFactory(new PropertyValueFactory("distance"));
-        c7.setCellValueFactory(new PropertyValueFactory("time"));
-        c8.setCellValueFactory(new PropertyValueFactory("approved"));
-        c9.setCellValueFactory(new PropertyValueFactory("inqueue"));
-        c10.setCellValueFactory(new PropertyValueFactory("datatime"));
+        c3.setCellValueFactory(new PropertyValueFactory("vehicleid"));
+        c4.setCellValueFactory(new PropertyValueFactory("userid"));
+        c5.setCellValueFactory(new PropertyValueFactory("startPoint"));
+        c6.setCellValueFactory(new PropertyValueFactory("finishPoint"));
+        c7.setCellValueFactory(new PropertyValueFactory("distance"));
+        c8.setCellValueFactory(new PropertyValueFactory("time"));
+        c9.setCellValueFactory(new PropertyValueFactory("approved"));
+        c10.setCellValueFactory(new PropertyValueFactory("inqueue"));
+        c11.setCellValueFactory(new PropertyValueFactory("datatime"));
         orderTable.getColumns().add(c1);
         orderTable.getColumns().add(c2);
         orderTable.getColumns().add(c3);
@@ -276,18 +282,39 @@ public class AdminController {
         orderTable.getColumns().add(c8);
         orderTable.getColumns().add(c9);
         orderTable.getColumns().add(c10);
+        orderTable.getColumns().add(c11);
     }
-
-
 
 
 
     public void infoButtonClick(ActionEvent actionEvent) {
         ArrayList<String> value ;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         ClientThread thread;
         switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                thread = new ClientThread(()-> AdminSQLMethods.getAvgTimeForVehiclePerDay(vehicleTable.getSelectionModel().getSelectedItem().getId()));
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String time = (String) thread.result;
+
+                String vehicleId = vehicleTable.getSelectionModel().getSelectedItem().getId();
+                if (time == null){
+                    time = "0";
+                }
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText(String.format("Vehicle id: %s\nVehicle Avg Distance per day: %d meters",
+                        vehicleId, Math.round(new Double(time))));
+                alert.showAndWait();
+
+                break;
             case 1:
-                thread = new ClientThread(()-> AdminSQLMethods.getAvgTimeAndDistanceOfCertainId("User",userTable.getSelectionModel().getSelectedItem().getId()));
+                thread = new ClientThread(()-> AdminSQLMethods.getAvgTimeAndDistanceOfCertainId("Users",userTable.getSelectionModel().getSelectedItem().getId()));
                 thread.start();
                 try {
                     thread.join();
@@ -295,13 +322,17 @@ public class AdminController {
                     e.printStackTrace();
                 }
                 value = (ArrayList)thread.result;
+
                 if (value.size()>0){
+                    if (value.get(0)==null){
+                        value.set(0, "0");
+                        value.set(1, "0");
+                    }
                     UserWrapper item = userTable.getSelectionModel().getSelectedItem();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
-                    alert.setContentText(String.format("User id: %s\nUser name: %s\nUserAvgTime: %s\nUserAvgDistance: %s",
-                            item.getId(), item.getName(), value.get(0), value.get(1)));
+                    alert.setContentText(String.format("User id: %s\nUser name: %s\nUserAvgTime: %s\nUserAvgDistance: %d",
+                            item.getId(), item.getName(), value.get(0), Math.round(new Double(value.get(1)))));
                     alert.showAndWait();
                 }
                 break;
@@ -315,12 +346,15 @@ public class AdminController {
                 }
                 value = (ArrayList)thread.result;
                 if (value.size()>0){
+                    if (value.get(0)==null){
+                        value.set(0, "0");
+                        value.set(1, "0");
+                    }
                     DriverWrapper item = driverTable.getSelectionModel().getSelectedItem();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
-                    alert.setContentText(String.format("Driver id: %s\nDriver name: %s\nDriverAvgTime: %s\nDriverAvgDistance: %s",
-                            item.getId(), item.getName(), value.get(0), value.get(1)));
+                    alert.setContentText(String.format("Driver id: %s\nDriver name: %s\nDriverAvgTime: %s\nDriverAvgDistance: %d",
+                            item.getId(), item.getName(),  value.get(0), Math.round(new Double(value.get(1)))));
                     alert.showAndWait();
                 }
                 break;
@@ -428,6 +462,8 @@ public class AdminController {
         });
     }
 
+
+
     public void reportButtonClick(ActionEvent actionEvent) {
         switch (tabPane.getSelectionModel().getSelectedIndex()){
             case 0:
@@ -448,5 +484,47 @@ public class AdminController {
         alert.setHeaderText("Информация");
         alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
         alert.showAndWait();
+    }
+
+    public void fillClick(ActionEvent actionEvent) {
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+               Test.fillVehicleTable(10);
+                break;
+            case 1:
+                Test.fillUserTable(10);
+                break;
+            case 2:
+                Test.fillDriverTable(10);
+                break;
+            case 3:
+                new ClientThread(()->Test.fillOrderTable(10, userTable.getItems())).start();
+
+        }
+    }
+
+    public void clearClick(ActionEvent actionEvent) {
+        switch (tabPane.getSelectionModel().getSelectedIndex()){
+            case 0:
+                AdminSQLMethods.clearTable("vehicle");
+                break;
+            case 1:
+                AdminSQLMethods.clearTable("users");
+                break;
+            case 2:
+                AdminSQLMethods.clearTable("driver");
+                break;
+            case 3:
+                AdminSQLMethods.clearTable("orderlist");
+
+        }
+    }
+
+    public void onExitClicked(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void connectionClicked(ActionEvent actionEvent) {
+        WindowsCreator.createConnectionEditer();
     }
 }

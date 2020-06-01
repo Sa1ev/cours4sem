@@ -27,7 +27,7 @@
       </HBox>
       <HBox layoutX="5.0" layoutY="53.0" prefHeight="25.0" prefWidth="339.0" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="94.0">
          <children>
-            <TextField fx:id="nameField" minWidth="150.0" />
+            <TextField fx:id="userNameField" minWidth="150.0" />
             <Region minWidth="30.0" prefHeight="26.0" prefWidth="30.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Имя" wrappingWidth="75.115234375" />
          </children>

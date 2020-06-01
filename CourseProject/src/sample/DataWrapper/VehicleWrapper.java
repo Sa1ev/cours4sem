@@ -1,6 +1,7 @@
 package sample.DataWrapper;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,25 +9,25 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class VehicleWrapper {
-    private SimpleStringProperty id;
+    private SimpleIntegerProperty id;
     private SimpleStringProperty Model;
     private SimpleStringProperty LicenceNumber;
     private SimpleStringProperty DriverId;
 
     public boolean isMatching(String text){
-        Boolean a =  id.get().contains(text) | Model.get().contains(text) | LicenceNumber.get().contains(text);
+        Boolean a =  id.getValue().toString().contains(text) | Model.get().contains(text) | LicenceNumber.get().contains(text);
         return a;
     }
     public String getId() {
-        return id.get();
+        return id.getValue().toString();
     }
 
-    public SimpleStringProperty idProperty() {
+    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
     public void setId(String id) {
-        this.id.set(id);
+        this.id.set(new Integer(id));
     }
 
     public String getModel() {
@@ -69,7 +70,7 @@ public class VehicleWrapper {
 
 
     public VehicleWrapper(String[] properties){
-        id = new SimpleStringProperty(properties[0]);
+        id = new SimpleIntegerProperty(new Integer(properties[0]));
         Model = new SimpleStringProperty(properties[1]);
         LicenceNumber = new SimpleStringProperty(properties[2]);
         DriverId = new SimpleStringProperty(properties[3]);

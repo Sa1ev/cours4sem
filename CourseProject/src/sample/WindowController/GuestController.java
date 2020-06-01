@@ -1,5 +1,6 @@
 package sample.WindowController;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +12,7 @@ import sample.DataWrapper.DriverWrapper;
 import sample.Methods.AdminSQLMethods;
 import sample.Thread.ClientThread;
 import sample.Thread.UILoadThread;
-import sample.Thread.ValuesChangeThread;
+import sample.Utils.Global;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -98,7 +99,7 @@ public class GuestController {
     public void regUser(ActionEvent actionEvent) {
         String[] value = WindowsCreator.createUserCreationWindow();
         if (value != null){
-            new ValuesChangeThread(new ClientThread(()-> AdminSQLMethods.getLineByPhoneAndPassword("User",new Long(value[0]), value[1])), null).start();
+            new ClientThread(()-> AdminSQLMethods.addUser(value[0], value[1], value[2])).start();
         }
     }
 
@@ -108,5 +109,13 @@ public class GuestController {
         alert.setHeaderText("Информация");
         alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
         alert.showAndWait();
+    }
+
+    public void onExitClicked(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void connectionClicked(ActionEvent actionEvent) {
+        WindowsCreator.createConnectionEditer();
     }
 }

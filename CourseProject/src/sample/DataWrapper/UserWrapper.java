@@ -1,5 +1,6 @@
 package sample.DataWrapper;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,19 +8,19 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class UserWrapper {
-    private SimpleStringProperty id;
+    private SimpleIntegerProperty id;
     private SimpleStringProperty Name;
     private SimpleStringProperty PhoneNumber;
     private SimpleStringProperty Password;
     public UserWrapper(String[] properties){
-        id = new SimpleStringProperty(properties[0]);
+        id = new SimpleIntegerProperty(new Integer(properties[0]));
         Name = new SimpleStringProperty(properties[1]);
         PhoneNumber = new SimpleStringProperty(properties[2]);
         Password = new SimpleStringProperty(properties[3]);
 
     }
     public boolean isMatching(String text){
-        return id.get().contains(text) | Name.get().contains(text) | PhoneNumber.get().contains(text);
+        return id.getValue().toString().contains(text) | Name.get().contains(text) | PhoneNumber.get().contains(text);
     }
 
     public static ObservableList convertArrayList(ArrayList<String[]> list){
@@ -34,15 +35,15 @@ public class UserWrapper {
     }
 
     public String getId() {
-        return id.get();
+        return id.getValue().toString();
     }
 
-    public SimpleStringProperty idProperty() {
+    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
     public void setId(String id) {
-        this.id.set(id);
+        this.id.set(new Integer(id));
     }
 
     public String getName() {

@@ -1,47 +1,51 @@
 package sample.DataWrapper;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Util;
+import sample.Utils.Util;
 
 import java.util.ArrayList;
 
 public class OrderWrapper {
-    private SimpleStringProperty orderid;
-    private SimpleStringProperty driverid;
-    private SimpleStringProperty userid;
+    private SimpleIntegerProperty orderid;
+    private SimpleIntegerProperty driverid;
+    private SimpleIntegerProperty userid;
     private SimpleStringProperty startPoint;
     private SimpleStringProperty finishPoint;
-    private SimpleStringProperty distance;
+    private SimpleIntegerProperty distance;
     private SimpleStringProperty time;
     private SimpleStringProperty approved;
     private SimpleStringProperty inqueue;
     private SimpleStringProperty datatime;
+    private SimpleStringProperty vehicleid;
 
 
 
     public OrderWrapper(String[] properties){
-        orderid = new SimpleStringProperty(properties[0]);
-        driverid = new SimpleStringProperty(properties[1]);
-        userid = new SimpleStringProperty(properties[2]);
+        orderid = new SimpleIntegerProperty(new Integer(properties[0]));
+        driverid = new SimpleIntegerProperty(new Integer(properties[1]));
+        userid = new SimpleIntegerProperty(new Integer(properties[2]));
         startPoint = new SimpleStringProperty(properties[3]);
         finishPoint = new SimpleStringProperty(properties[4]);
-        distance = new SimpleStringProperty(properties[5]);
+        distance = new SimpleIntegerProperty(new Integer(properties[5]));
         time = new SimpleStringProperty(properties[6]);
         approved = new SimpleStringProperty(properties[7]);
         inqueue = new SimpleStringProperty(properties[8]);
         datatime = new SimpleStringProperty(properties[9]);
+        vehicleid = new SimpleStringProperty(properties[10]);
     }
 
     public boolean isMatching(String text){
-        return orderid.get().contains(text) | driverid.get().contains(text) | userid.get().contains(text) | startPoint.get().contains(text) | finishPoint.get().contains(text);
+        return orderid.getValue().toString().contains(text) | driverid.getValue().toString().contains(text) |
+                userid.getValue().toString().contains(text) | startPoint.get().contains(text) | finishPoint.get().contains(text);
     }
     public boolean isMatchingByDriver(String text){
-        return orderid.get().contains(text) | driverid.get().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text) ;
+        return orderid.getValue().toString().contains(text) | driverid.getValue().toString().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text) ;
     }
     public boolean isMatchingByUser(String text){
-        return orderid.get().contains(text)  | userid.get().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text);
+        return orderid.getValue().toString().contains(text)  | userid.getValue().toString().contains(text)| startPoint.get().contains(text) | finishPoint.get().contains(text);
     }
 
     public static ObservableList convertArrayList(ArrayList<String[]> list){
@@ -80,51 +84,51 @@ public class OrderWrapper {
     }
 
     public String getOrderid() {
-        return orderid.get();
+        return orderid.getValue().toString();
     }
 
-    public SimpleStringProperty orderidProperty() {
+    public SimpleIntegerProperty orderidProperty() {
         return orderid;
     }
 
     public void setOrderid(String orderid) {
-        this.orderid.set(orderid);
+        this.orderid.set(new Integer(orderid));
     }
 
     public String getDriverid() {
-        return driverid.get();
+        return driverid.getValue().toString();
     }
 
-    public SimpleStringProperty driveridProperty() {
+    public SimpleIntegerProperty driveridProperty() {
         return driverid;
     }
 
     public void setDriverid(String driverid) {
-        this.driverid.set(driverid);
+        this.driverid.set(new Integer(driverid));
     }
 
     public String getUserid() {
-        return userid.get();
+        return userid.getValue().toString();
     }
 
-    public SimpleStringProperty useridProperty() {
+    public SimpleIntegerProperty useridProperty() {
         return userid;
     }
 
     public void setUserid(String userid) {
-        this.userid.set(userid);
+        this.userid.set(new Integer(userid));
     }
 
     public String getDistance() {
-        return distance.get();
+        return distance.getValue().toString();
     }
 
-    public SimpleStringProperty distanceProperty() {
+    public SimpleIntegerProperty distanceProperty() {
         return distance;
     }
 
     public void setDistance(String distance) {
-        this.distance.set(distance);
+        this.distance.set(new Integer(distance));
     }
 
     public String getTime() {
@@ -174,5 +178,18 @@ public class OrderWrapper {
 
     public void setDatatime(String datatime) {
         this.datatime.set(datatime);
+    }
+
+
+    public String getVehicleid() {
+        return vehicleid.get();
+    }
+
+    public SimpleStringProperty vehicleidProperty() {
+        return vehicleid;
+    }
+
+    public void setVehicleid(String vehicleid) {
+        this.vehicleid.set(vehicleid);
     }
 }

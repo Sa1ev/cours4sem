@@ -6,15 +6,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AdminSQLMethods extends SQLMethods {
-
-    private static Statement statement = SQLMethods.getStatement();
     public AdminSQLMethods(){
         super();
     }
 
     static public boolean addVehicle(String model, String licenceNumber){
         try {
-
             statement.execute(String.format("insert into vehicle(Model,LicenceNumber) values('%s', %s);", model, licenceNumber));
             return true;
         } catch (SQLException e) {
@@ -24,36 +21,42 @@ public class AdminSQLMethods extends SQLMethods {
 
     }
     static public boolean addUser(String phoneNumber, String password, String name ){
-        try {
+        synchronized (statement){
+            try {
 
-            statement.execute(String.format("insert into \"user\"( Name, Password, PhoneNumber) values('%s', '%s', %s);", name, password, phoneNumber));
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+                statement.execute(String.format("insert into users( Name, Password, PhoneNumber) values('%s', '%s', %s);", name, password, phoneNumber));
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
     static public boolean addDriver( String phoneNumber, String password, String name, String vehicleId, String licenceId ){
-        try {
-            statement.execute(String.format("update Driver set vehicleid=null where vehicleid = %s;", vehicleId));
-            statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values('%s', '%s', %s,%s,%s);",
-                    name, password,phoneNumber,vehicleId,licenceId));
-            ResultSet set = statement.executeQuery(String.format("Select max(id) from vehicle;"));
-            String driverId = "-1";
-            while (set.next()){
-                driverId = set.getString(1);
+        synchronized (statement){
+            try {
+                statement.execute(String.format("update Driver set vehicleid=null where vehicleid = %s;", vehicleId));
+                statement.execute(String.format("insert into Driver( Name, Password, PhoneNumber, vehicleid, licenceid) values('%s', '%s', %s,%s,%s);",
+                        name, password,phoneNumber,vehicleId,licenceId));
+                ResultSet set = statement.executeQuery(String.format("Select max(id) from vehicle;"));
+                String driverId = "-1";
+                while (set.next()){
+                    driverId = set.getString(1);
+                }
+                statement.execute(String.format("update vehicle set driverid=%s where id = %s;", driverId, vehicleId));
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
             }
-            statement.execute(String.format("update vehicle set driverid=%s where id = %s;", driverId, vehicleId));
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
+
     }
 
 
 
     static public boolean editVehicle(String id, String model, String licenceNumber){
+        synchronized (statement){
         try {
 
             statement.execute(String.format("update vehicle set  Model='%s', LicenceNumber=%s where id = %s;",  model, licenceNumber, id));
@@ -62,12 +65,13 @@ public class AdminSQLMethods extends SQLMethods {
             e.printStackTrace();
             return false;
         }
+        }
 
     }
     static public boolean editUser(String id,String phoneNumber, String password, String name ){
         try {
 
-            statement.execute(String.format("update \"user\" set Name='%s', Password='%s', PhoneNumber=%s where id = %s;", name, password, phoneNumber,id));
+            statement.execute(String.format("update users set Name='%s', Password='%s', PhoneNumber=%s where id = %s;", name, password, phoneNumber,id));
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,7 +131,6 @@ public class AdminSQLMethods extends SQLMethods {
 
         try {
             statement.execute("Delete from "+tableName+";");
-            statement.execute("ALTER TABLE "+tableName+" AUTO_INCREMENT = 1;");
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -205,8 +208,8 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMaxDriverValues(){
         try{
-            ResultSet set = statement.executeQuery("select d.id, d.name,  max(o.time),max(o.distance) from orderlist o " +
-                    "join driver d on d.id = o.driverid where o.approved = 1 group by d.id, d.name;");
+            ResultSet set = statement.executeQuery("select d.id, d.name,  max(o.time) newtime,max(o.distance) from orderlist o " +
+                    "join driver d on d.id = o.driverid where o.approved = 1 group by d.id, d.name order by newtime desc; ");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -223,8 +226,8 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMinDriverValues(){
         try{
-            ResultSet set = statement.executeQuery("select d.id, d.name, min(o.time),min(o.distance) from orderlist o " +
-                    "join driver d on d.id = o.driverid where o.approved = 1 group by d.id, d.name;");
+            ResultSet set = statement.executeQuery("select d.id, d.name, min(o.time) newtime,min(o.distance) from orderlist o " +
+                    "join driver d on d.id = o.driverid where o.approved = 1 group by d.id, d.name order by newtime;;");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -240,9 +243,19 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static  private String[] getMaxSumDriverValues(){
         try{
-            ResultSet set = statement.executeQuery("select  t.driverid, t.name,max(t.newtime), max(newDist) from (select (sum(o.time)) as newtime, " +
-                    "sum(distance) as newDist, o.driverid, u.name from orderlist o join driver u on u.id = o.driverid\n" +
-                    "where approved = 1 group by o.driverid, u.name) t group by t.driverid, t.name, t;");
+            ResultSet set = statement.executeQuery("\n" +
+                    "SELECT driverid,\n" +
+                    "sum(distance),\t\n" +
+                    "name,\n" +
+                    "sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "join driver on driver.id = orderlist.driverid\n" +
+                    "GROUP BY name,driverid\n" +
+                    "HAVING sum(time) = (\n" +
+                    "SELECT sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "GROUP BY   driverid\n" +
+                    "ORDER BY sum(time) DESC LIMIT 1);");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -258,9 +271,20 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMaxSumFromLastMonthDriverValues(){
         try{
-            ResultSet set = statement.executeQuery("select  t.driverid, t.name,max(t.newtime), max(newDist) from (select (sum(o.time)) as newtime, " +
-                    "sum(distance) as newDist, o.driverid, u.name from orderlist o join driver u on u.id = o.driverid\n" +
-                    "where approved = 1 and dateandtime > NOW() - INTERVAL '1 MONTH' group by o.driverid, u.name) t group by t.driverid, t.name, t;");
+            ResultSet set = statement.executeQuery("\n" +
+                    "SELECT driverid,\n" +
+                    "sum(distance),\t\n" +
+                    "name,\n" +
+                    "sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "join driver on driver.id = orderlist.driverid\n" +
+                    "GROUP BY name,driverid\n" +
+                    "HAVING sum(time) = (\n" +
+                    "SELECT sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "where approved = 1 and dateandtime > NOW() - INTERVAL '1 MONTH'\n" +
+                    "GROUP BY   driverid\n" +
+                    "ORDER BY sum(time) DESC LIMIT 1);");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -277,8 +301,8 @@ public class AdminSQLMethods extends SQLMethods {
 
     static  private String[] getMaxUserValues(){
         try{
-            ResultSet set = statement.executeQuery("select u.id, u.name, max(o.time),max(o.distance) from orderlist o " +
-                    "join \"user\" u on u.id = o.userid where o.approved = 1 group by u.id, u.name;");
+            ResultSet set = statement.executeQuery("select u.id, u.name, max(o.time) newtime,max(o.distance) from orderlist o " +
+                    "join users u on u.id = o.userid where o.approved = 1 group by u.id, u.name order by newtime ;");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -295,8 +319,8 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMinUserValues(){
         try{
-            ResultSet set = statement.executeQuery("select u.id, u.name,min(o.time),min(o.distance) from orderlist o " +
-                    "join \"user\" u on u.id = o.userid where o.approved = 1 group by u.id, u.name;");
+            ResultSet set = statement.executeQuery("select u.id, u.name,min(o.time) newtime,min(o.distance) from orderlist o " +
+                    "join users u on u.id = o.userid where o.approved = 1 group by u.id, u.name order by newtime desc;");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -312,9 +336,18 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMaxSumUserValues(){
         try{
-            ResultSet set = statement.executeQuery("select  t.userid  , t.name,max(t.newtime), max(newDist) from (select (sum(o.time)) as " +
-                    "newtime, sum(distance) as newDist, o.userid, u.name from orderlist o join \"user\" u on u.id = o.userid\n" +
-                    "where approved = 1  group by o.userid, u.name) t group by t.userid, t.name, t;");
+            ResultSet set = statement.executeQuery("SELECT userid,\n" +
+                    "sum(distance),\t\n" +
+                    "name,\n" +
+                    "sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "join users on users.id = orderlist.userid\n" +
+                    "GROUP BY name,userid\n" +
+                    "HAVING sum(time) = (\n" +
+                    "SELECT sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "GROUP BY   userid\n" +
+                    "ORDER BY sum(time) DESC LIMIT 1);");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -330,9 +363,19 @@ public class AdminSQLMethods extends SQLMethods {
     }
     static private String[] getMaxSumFromLastMonthUserValues(){
         try{
-            ResultSet set = statement.executeQuery("select  t.userid  , t.name,max(t.newtime), max(newDist) from (select (sum(o.time)) as newtime, sum(distance) " +
-                    "as newDist, o.userid, u.name from orderlist o join \"user\" u on u.id = o.userid\n" +
-                    "where approved = 1 and dateandtime > NOW() - INTERVAL '1 MONTH' group by o.userid, u.name) t group by t.userid, t.name, t;");
+            ResultSet set = statement.executeQuery("SELECT userid,\n" +
+                    "sum(distance),\t\n" +
+                    "name,\n" +
+                    "sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "join users on users.id = orderlist.userid\n" +
+                    "GROUP BY name,userid\n" +
+                    "HAVING sum(time) = (\n" +
+                    "SELECT sum(time)\n" +
+                    "FROM orderlist\n" +
+                    "where approved = 1 and dateandtime > NOW() - INTERVAL '1 MONTH'\n" +
+                    "GROUP BY   userid\n" +
+                    "ORDER BY sum(time) DESC LIMIT 1);");
             while (set.next()){
                 String[] oneRow = new String[4];
                 for (int i = 0; i <4 ; i++) {
@@ -358,13 +401,23 @@ public class AdminSQLMethods extends SQLMethods {
         }
         return null;
     }
-
     static private String getCountOfVehicleWithDriver(){
         try{
             ResultSet set = statement.executeQuery("select count(id) from vehicle where driverid is not null;");
             while (set.next()){
                 return set.getString(1);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static public String getAvgTimeForVehiclePerDay(String vehicleId){
+        try{
+            ResultSet set = statement.executeQuery("select avg(distance)/COUNT(DISTINCT CAST(dateandtime AS DATE)) from orderlist where vehicleid = "+vehicleId+" and approved = 1;");
+            set.next();
+            return set.getString(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }

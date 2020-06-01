@@ -209,5 +209,28 @@ public class WindowsCreator {
     }
 
 
+    public static void createConnectionEditer(){
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(WindowsCreator.class.getResource("WindowsStorage/connectionwindow.fxml"));
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Введите данные подключения");
+            stage.setScene(new Scene(root, 400, 300));
+            stage.setWidth(400);
+            stage.setHeight(300);
+            stage.setMinWidth(400);
+            stage.setMinHeight(300);
+            stage.setMaxWidth(400);
+            stage.setMaxHeight(300);
+            stage.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

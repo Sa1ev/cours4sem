@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class UserSQLMethods extends SQLMethods {
-    private static Statement statement = SQLMethods.getStatement();
     public UserSQLMethods(){
         super();
     }
@@ -49,16 +48,31 @@ public class UserSQLMethods extends SQLMethods {
         }
         return value;
     }
-    static public boolean addOrder( String driverid, String userid, String startpoint, String finishpoint,  String time, String distance){
+    static public boolean addOrder( String driverid, String userid, String startpoint, String finishpoint,  String time, String distance, String vehicleid){
         try {
 
-            statement.execute(String.format("insert into orderlist(driverid, userid,startpoint, finishpoint, time, distance, approved, inqueue) values (%s, %s, '%s','%s','%s',%s,0,1);",
-                    driverid,  userid,  startpoint,  finishpoint,  time,  distance));
+            statement.execute(String.format("insert into orderlist(driverid, userid,startpoint, finishpoint, time, distance, approved, inqueue, vehicleid) values (%s, %s, '%s','%s','%s',%s,0,1, %s);",
+                    driverid,  userid,  startpoint,  finishpoint,  time,  distance, vehicleid));
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    static public boolean addOrderTest( String driverid, String userid, String startpoint, String finishpoint,  String time, String distance, int inQueue, int approved, String vehicleid){
+        synchronized (statement){
+            try {
+
+                statement.execute(String.format("insert into orderlist(driverid, userid,startpoint, finishpoint, time, distance, approved, inqueue, vehicleid) values (%s, %s, '%s','%s','%s',%s,%d,%d, %s);",
+                        driverid,  userid,  startpoint,  finishpoint,  time,  distance, inQueue%2, approved%2, vehicleid));
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
     }
 
     static public boolean deleteOrder(String orderId){

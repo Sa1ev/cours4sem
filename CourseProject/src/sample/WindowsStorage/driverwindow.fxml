@@ -42,7 +42,8 @@
          <menus>
             <Menu mnemonicParsing="false" text="Программа">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Выход" />
+                  <MenuItem mnemonicParsing="false" onAction="#connectionClicked" text="Настройка подключения" />
+                  <MenuItem mnemonicParsing="false" onAction="#onExitClicked" text="Выход" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Уч. запись">

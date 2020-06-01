@@ -6,9 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
-import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.VehicleWrapper;
-import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -29,7 +27,7 @@ public class CreateVehicleController {
     @FXML
     public void initialize(){
 
-        Pattern validModelText = Pattern.compile("^[A-Za-zА-Яа-я0-9\\-]{0,45}$");
+        Pattern validModelText = Pattern.compile("^[A-Za-zА-Яа-я0-9\\-\\s]{0,45}$");
         setupPattern(validModelText, modelField, null);
 
         Pattern validLicenceText = Pattern.compile("\\d{0,15}");

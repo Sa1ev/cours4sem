@@ -31,7 +31,7 @@ public class UILoadThread extends  Thread{
                 AdminController adminController = (AdminController)controller;
                 new UIUpdate(adminController.vehicleTable, new ClientThread(()-> SQLMethods.getTable("Vehicle")), "VehicleWrapper").start();
                 adminController.vehicleTableItems = null;
-                new UIUpdate(adminController.userTable, new ClientThread(()->SQLMethods.getTable("User")), "UserWrapper").start();
+                new UIUpdate(adminController.userTable, new ClientThread(()->SQLMethods.getTable("Users")), "UserWrapper").start();
                 adminController.userTableItems = null;
                 new UIUpdate(adminController.driverTable, new ClientThread(()->SQLMethods.getTable("Driver")), "DriverWrapper").start();
                 adminController.driverTableItems = null;
@@ -41,7 +41,7 @@ public class UILoadThread extends  Thread{
                 return;
             case "User":
                 UserController userController = (UserController) controller;
-                new UIUpdate(userController.driverTable ,new ClientThread(()->UserSQLMethods.getTable("Driver")), "DriverWrapper").start();
+                new UIUpdate(userController.driverTable ,new ClientThread(()->UserSQLMethods.getDriversWithVehicleTable()), "DriverWrapper").start();
                 userController.driverTableItems= null;
                 new UIUpdate(userController.orderQueueTable , new ClientThread(()->UserSQLMethods.getOrdersInQueue( Integer.toString(Account.id))),
                         "OrderWrapper").start();
@@ -63,7 +63,7 @@ public class UILoadThread extends  Thread{
                 return;
             case "Guest":
                 GuestController guestController = (GuestController) controller;
-                new UIUpdate(guestController.driverTable ,new ClientThread(()-> SQLMethods.getTable("Driver")), "DriverWrapper").start();
+                new UIUpdate(guestController.driverTable ,new ClientThread(()-> SQLMethods.getDriversWithVehicleTable()), "DriverWrapper").start();
                 guestController.driverTableItems= null;
                 return;
         }

@@ -6,9 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
-import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.UserWrapper;
-import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -23,7 +21,7 @@ public class CreateUserController {
     @FXML
     TextField numberField;
     @FXML
-    TextField nameField;
+    TextField userNameField;
     @FXML
     TextField passwordField;
 
@@ -36,18 +34,18 @@ public class CreateUserController {
         setupPattern(validPasswordText, passwordField, null);
 
         Pattern validNameText = Pattern.compile("[A-Яа-яA-Za-z\\s]{0,30}");
-        setupPattern(validNameText, nameField, null);
+        setupPattern(validNameText, userNameField, null);
 
     }
     Pattern phone = Pattern.compile("\\d{11}");
     Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
     public void createButtonClick(){
-        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & !nameField.getText().isEmpty()){
+        if (phone.matcher(numberField.getText()).matches() & password.matcher(passwordField.getText()).matches() & !userNameField.getText().isEmpty()){
             returningValue = new String[3];
             returningValue[0] =  numberField.getText();
             returningValue[1] =  passwordField.getText();
-            returningValue[2] =  nameField.getText();
+            returningValue[2] =  userNameField.getText();
         }
         ((Stage)passwordField.getScene().getWindow()).close();
 
@@ -63,9 +61,11 @@ public class CreateUserController {
     }
 
     public void setValues(UserWrapper values){
+
+
         numberField.setText(values.getPhoneNumber());
         passwordField.setText(values.getPassword());
-        nameField.setText(values.getName());
+        userNameField.setText((values.getName()));
 
     }
     private void setupPattern(Pattern pattern, TextField field, String defaultValue){

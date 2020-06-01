@@ -1,5 +1,6 @@
 package sample.WindowController;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,7 +13,7 @@ import sample.*;
 import sample.DataWrapper.OrderWrapper;
 import sample.Methods.DriverSQLMethods;
 import sample.Thread.ClientThread;
-import sample.Thread.UILoadThread;
+import sample.Utils.Global;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,21 +62,21 @@ public class DriverController {
         approveButton.setDisable(true);
         rejectButton.setDisable(true);
         tabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        unselectButtons();
-                        orderQueueTable.getSelectionModel().clearSelection();
-                        orderHistoryTable.getSelectionModel().clearSelection();
-                        searchTextBox.clear();
-                    }
-                }
-        );
+                        new ChangeListener<Tab>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                                unselectButtons();
+                                orderQueueTable.getSelectionModel().clearSelection();
+                                orderHistoryTable.getSelectionModel().clearSelection();
+                                searchTextBox.clear();
+                            }
+                        }
+                );
 
-        orderQueueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                rejectButton.setDisable(false);
-                approveButton.setDisable(false);
+                orderQueueTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                    if (newSelection != null) {
+                        rejectButton.setDisable(false);
+                        approveButton.setDisable(false);
             }
         });
         searchTextBox.textProperty().addListener(
@@ -181,5 +182,13 @@ public class DriverController {
         alert.setHeaderText("Информация");
         alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
         alert.showAndWait();
+    }
+
+    public void onExitClicked(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void connectionClicked(ActionEvent actionEvent) {
+        WindowsCreator.createConnectionEditer();
     }
 }

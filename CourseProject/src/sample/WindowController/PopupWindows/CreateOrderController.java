@@ -7,7 +7,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 import sample.DataWrapper.DriverWrapper;
-import sample.Global;
 
 import java.util.regex.Pattern;
 
@@ -35,8 +34,6 @@ public class CreateOrderController {
         setupPattern(validNameText, finishField, null);
 
     }
-    Pattern phone = Pattern.compile("\\d{11}");
-    Pattern password = Pattern.compile("\\S{5,20}");
     @FXML
     public void createButtonClick(){
         if ( !distanceField.getText().isEmpty()& !startField.getText().isEmpty()& !finishField.getText().isEmpty()){

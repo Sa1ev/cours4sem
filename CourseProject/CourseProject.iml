@@ -10,5 +10,7 @@
     <orderEntry type="library" exported="" name="itextpdf-5.5.13.1" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-8.0.19" level="project" />
     <orderEntry type="library" exported="" name="postgresql-42.2.12" level="project" />
+    <orderEntry type="library" exported="" name="jmetro-11.6.9" level="project" />
+    <orderEntry type="library" exported="" name="orsoncharts-1.4-eval-nofx" level="project" />
   </component>
 </module>

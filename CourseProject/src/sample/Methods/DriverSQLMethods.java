@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DriverSQLMethods extends SQLMethods {
-    private static Statement statement = SQLMethods.getStatement();
     public DriverSQLMethods(){
         super();
     }

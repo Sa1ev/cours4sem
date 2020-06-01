@@ -49,7 +49,7 @@ public class Account {
             return false;
         }
         else if (role == "User"){
-            ClientThread thread = new ClientThread(()->AdminSQLMethods.getLineByPhoneAndPassword("User",new Long(number),password));
+            ClientThread thread = new ClientThread(()->AdminSQLMethods.getLineByPhoneAndPassword("Users",new Long(number),password));
             thread.start();
             try {
                 thread.join();

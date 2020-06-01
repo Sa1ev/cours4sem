@@ -18,7 +18,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="vehicleTable" prefHeight="607.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="vehicleTable" prefHeight="607.0" prefWidth="1015.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
@@ -68,7 +68,8 @@
          <menus>
             <Menu mnemonicParsing="false" text="Программа">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Выход" />
+                  <MenuItem mnemonicParsing="false" onAction="#connectionClicked" text="Настройка подключения" />
+                  <MenuItem mnemonicParsing="false" onAction="#onExitClicked" text="Выход" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Уч. запись">
@@ -91,5 +92,7 @@
       <Button fx:id="deleteButton" layoutX="1051.0" layoutY="160.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="34.0" prefWidth="115.0" text="Удалить" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="160.0" />
       <TextField fx:id="searchTextBox" layoutX="14.0" layoutY="42.0" prefHeight="13.0" prefWidth="379.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="42.0" />
       <Button fx:id="reportButton" layoutX="1051.0" layoutY="244.0" mnemonicParsing="false" onAction="#reportButtonClick" prefHeight="34.0" prefWidth="115.0" text="Отчет" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="244.0" />
+      <Button fx:id="fillingButton" layoutX="1051.0" layoutY="598.0" mnemonicParsing="false" onAction="#fillClick" prefHeight="34.0" prefWidth="115.0" text="Заполнить " AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="clearingButton" layoutX="1051.0" layoutY="650.0" mnemonicParsing="false" onAction="#clearClick" prefHeight="34.0" prefWidth="115.0" text="Очистить" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

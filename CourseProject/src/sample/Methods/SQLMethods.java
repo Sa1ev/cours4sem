@@ -7,19 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class SQLMethods {
-    static Statement statement = getStatement();
-    protected SQLMethods(){
-        Connection connection = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager
-                    .getConnection(ConnectionParams.URL, ConnectionParams.USER, ConnectionParams.PASSWORD);
-            new DBListener(connection).start();
-            statement =  connection.createStatement();
-        } catch (SQLException | ClassNotFoundException  e) {
-            e.printStackTrace();
-        }
-    }
+    static Statement statement = ConnectionDB.getStatement();
 
     protected static int getColumnCount(String tableName){
         ResultSet tableCount = null;
@@ -34,35 +22,58 @@ public class SQLMethods {
         }
 
     }
-    public static Statement getStatement() {
-        if (statement==null){
-            new SQLMethods();
-        }
-        return statement;
-    }
+
 
     static public ArrayList<String[]> getTable(String tableName){
-        ArrayList<String[]> value  = new ArrayList<>();
-        try {
+        synchronized (statement){
+            ArrayList<String[]> value  = new ArrayList<>();
+            try {
 
 
 
-            int columnCount=  getColumnCount(tableName);
-            ResultSet set = statement.executeQuery("Select * from \""+tableName.toLowerCase()+"\";");
-            while (set.next()){
-                String[] oneRow = new String[columnCount];
-                for (int i = 0; i < columnCount; i++) {
-                    oneRow[i] = set.getString(i+1);
+                int columnCount=  getColumnCount(tableName);
+                ResultSet set = statement.executeQuery("Select * from \""+tableName.toLowerCase()+"\";");
+                while (set.next()){
+                    String[] oneRow = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        oneRow[i] = set.getString(i+1);
+                    }
+                    value.add(oneRow);
+
                 }
-                value.add(oneRow);
-
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return value;
         }
-        return value;
+
     }
 
+    static public ArrayList<String[]> getDriversWithVehicleTable(){
+        synchronized (statement){
+            ArrayList<String[]> value  = new ArrayList<>();
+            try {
+
+                int columnCount=  getColumnCount("driver");
+                ResultSet set = statement.executeQuery("Select * from driver where vehicleid is not null;");
+                while (set.next()){
+                    String[] oneRow = new String[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        oneRow[i] = set.getString(i+1);
+                    }
+                    value.add(oneRow);
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return value;
+        }
+
+    }
+    public static void updateStatement(){
+        statement = ConnectionDB.getStatement();
+    }
 
 
 

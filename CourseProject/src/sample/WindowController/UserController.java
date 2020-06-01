@@ -1,5 +1,6 @@
 package sample.WindowController;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,7 +14,8 @@ import sample.DataWrapper.DriverWrapper;
 import sample.DataWrapper.OrderWrapper;
 import sample.Methods.UserSQLMethods;
 import sample.Thread.ClientThread;
-import sample.Thread.UILoadThread;
+import sample.Utils.Global;
+import sample.Utils.Util;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -206,22 +208,15 @@ public class UserController {
                     Integer.toString(Account.id),
                     value[0],
                     value[1],
-                    getTime(12, value[2]),
-                    value[2])).start();
+                    Util.getTime(12, value[2]),
+                    value[2],
+                    driverTable.getSelectionModel().getSelectedItem().getVehicleId())).start();
 
         }
     }
 
 
-    String getTime(int speedMS, String orderValues){
-        int distance = new Integer(orderValues)/speedMS;
-        int hours = distance/3600;
-        distance-=hours*3600;
-        int minutes  = distance/60;
-        distance -= minutes*60;
-        return String.format("%d:%d:%d", hours, minutes, distance);
 
-    }
 
     public void rejectButtonClick(ActionEvent actionEvent) {
         unselectButtons();
@@ -237,5 +232,13 @@ public class UserController {
         alert.setHeaderText("Информация");
         alert.setContentText("Разработчик данного приложения студент\nгруппы ИКБО-08-18 Смирнов Алексей");
         alert.showAndWait();
+    }
+
+    public void onExitClicked(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void connectionClicked(ActionEvent actionEvent) {
+        WindowsCreator.createConnectionEditer();
     }
 }
